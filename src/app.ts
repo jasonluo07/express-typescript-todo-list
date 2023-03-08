@@ -5,8 +5,8 @@ import { connectDB } from './database';
 dotenv.config();
 
 const app = express();
-const HOST = process.env.HOST || 'localhost';
-const PORT = parseInt(process.env.PORT || '3000', 10);
+const HOST = process.env.HOST ?? 'localhost';
+const PORT = process.env.PORT ?? '3000';
 
 app.get('/', (_req, res) => {
   res.status(200).json({ status: 'success', message: 'Hello World!' });
