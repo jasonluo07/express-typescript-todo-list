@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import { connectDB } from './database';
+import Todo, { ITodo } from './models/todo';
 
 dotenv.config();
 
@@ -10,6 +11,15 @@ const PORT = process.env.PORT ?? '3000';
 
 app.get('/', (_req, res) => {
   res.status(200).json({ status: 'success', message: 'Hello World!' });
+});
+
+app.get('/todos', async (_req, res) => {
+  try {
+    const todos: ITodo[] = await Todo.find();
+    res.status(200).json({ status: 'success', data: todos });
+  } catch (err) {
+    res.status(500).json({ status: 'error', message: 'Failed to fetch todos' });
+  }
 });
 
 async function startApp() {
