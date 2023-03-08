@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const connectDB = async () => {
+async function connectDB() {
   try {
     if (!process.env.MONGODB_URI) {
       throw new Error('MongoDB connection error: MONGODB_URI not set');
@@ -11,9 +11,9 @@ const connectDB = async () => {
     console.error('MongoDB connection error:', err);
     process.exit(1);
   }
-};
+}
 
-const disconnectDB = async () => {
+async function disconnectDB() {
   try {
     await mongoose.disconnect();
     console.info('MongoDB disconnected');
@@ -21,6 +21,6 @@ const disconnectDB = async () => {
     console.error('MongoDB disconnection error:', err);
     process.exit(1);
   }
-};
+}
 
 export { connectDB, disconnectDB };
