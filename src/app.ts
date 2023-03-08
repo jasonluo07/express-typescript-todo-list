@@ -16,11 +16,9 @@ async function startApp() {
   try {
     await connectDB();
     app.listen(PORT, () => {
-      // eslint-disable-next-line no-console
-      console.log(`App listening on port http://${HOST}:${PORT}`);
+      console.info(`App listening on http://${HOST}:${PORT}`);
     });
   } catch (err) {
-    // eslint-disable-next-line no-console
     console.error('Database connection error:', err);
     process.exit(1);
   }
