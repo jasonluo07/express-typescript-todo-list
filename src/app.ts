@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import express from 'express';
+import { connectDB } from './database';
 
 dotenv.config();
 
@@ -11,7 +12,18 @@ app.get('/', (_req, res) => {
   res.status(200).json({ status: 'success', message: 'Hello World!' });
 });
 
-app.listen(PORT, () => {
-  // eslint-disable-next-line no-console
-  console.log(`App listening on port http://${HOST}:${PORT}`);
-});
+async function startApp() {
+  try {
+    await connectDB();
+    app.listen(PORT, () => {
+      // eslint-disable-next-line no-console
+      console.log(`App listening on port http://${HOST}:${PORT}`);
+    });
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error('Database connection error:', err);
+    process.exit(1);
+  }
+}
+
+startApp();
