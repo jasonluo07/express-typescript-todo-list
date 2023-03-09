@@ -18,7 +18,7 @@ app.get('/', (_req, res) => {
 
 app.get('/todos', async (_req, res) => {
   try {
-    const todos: ITodo[] = await Todo.find();
+    const todos: ITodo[] = await Todo.find({});
     res.status(200).json({ status: 'success', data: todos });
   } catch (err) {
     res.status(500).json({ status: 'error', message: 'Failed to fetch todos' });
@@ -35,6 +35,15 @@ app.post('/todos', async (req, res) => {
     res.status(201).json({ status: 'success', data: todo });
   } catch (err) {
     res.status(500).json({ status: 'error', message: 'Failed to create todo' });
+  }
+});
+
+app.delete('/todos', async (req, res) => {
+  try {
+    await Todo.deleteMany({});
+    res.status(200).json({ status: 'success', message: 'All todos deleted' });
+  } catch (err) {
+    res.status(500).json({ status: 'error', message: 'Failed to delete todos' });
   }
 });
 
