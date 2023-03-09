@@ -25,6 +25,20 @@ app.get('/todos', async (_req, res) => {
   }
 });
 
+app.get('/todos/:id', async (req, res) => {
+  try {
+    const todo: ITodo | null = await Todo.findById(req.params.id);
+
+    if (todo) {
+      res.status(200).json({ status: 'success', data: todo });
+    } else {
+      res.status(404).json({ status: 'fail', message: 'Todo not found' });
+    }
+  } catch (err) {
+    res.status(500).json({ status: 'error', message: 'Failed to fetch todo' });
+  }
+});
+
 app.post('/todos', async (req, res) => {
   try {
     const todo: ITodo = new Todo({
