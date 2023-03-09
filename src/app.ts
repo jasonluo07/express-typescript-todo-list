@@ -38,6 +38,27 @@ app.post('/todos', async (req, res) => {
   }
 });
 
+app.put('/todos/:id', async (req, res) => {
+  try {
+    const updatedTodo: ITodo | null = await Todo.findByIdAndUpdate(
+      req.params.id,
+      {
+        title: req.body.title,
+        isDone: req.body.isDone,
+      },
+      { new: true }, // 回傳更新後的資料
+    );
+
+    if (updatedTodo) {
+      res.status(200).json({ status: 'success', data: updatedTodo });
+    } else {
+      res.status(404).json({ status: 'fail', message: 'Todo not found' });
+    }
+  } catch (err) {
+    res.status(500).json({ status: 'error', message: 'Failed to update todo' });
+  }
+});
+
 app.delete('/todos', async (_req, res) => {
   try {
     await Todo.deleteMany({});
