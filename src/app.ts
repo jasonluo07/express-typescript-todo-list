@@ -38,7 +38,7 @@ app.post('/todos', async (req, res) => {
   }
 });
 
-app.delete('/todos', async (req, res) => {
+app.delete('/todos', async (_req, res) => {
   try {
     await Todo.deleteMany({});
     res.status(200).json({ status: 'success', message: 'All todos deleted' });
@@ -54,7 +54,7 @@ async function startApp() {
       console.info(`App listening on http://${HOST}:${PORT}`);
     });
   } catch (err) {
-    console.error('Database connection error:', err);
+    console.error(`Database connection error: ${err}`);
     process.exit(1);
   }
 }
