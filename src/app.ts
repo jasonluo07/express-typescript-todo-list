@@ -9,8 +9,7 @@ const app = express();
 const HOST = process.env.HOST ?? 'localhost';
 const PORT = process.env.PORT ?? '3000';
 
-// 解析 json 格式的 req.body
-app.use(express.json());
+app.use(express.json()); // 解析 json 格式的 req.body
 
 app.get('/', (_req, res) => {
   res.status(200).json({ status: 'success', message: 'Hello World!' });
