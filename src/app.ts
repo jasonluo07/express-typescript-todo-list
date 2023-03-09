@@ -73,6 +73,19 @@ app.put('/todos/:id', async (req, res) => {
   }
 });
 
+app.delete('/todos/:id', async (req, res) => {
+  try {
+    const deletedTodo: ITodo | null = await Todo.findByIdAndDelete(req.params.id);
+    if (deletedTodo) {
+      res.status(200).json({ status: 'success', data: deletedTodo });
+    } else {
+      res.status(404).json({ status: 'fail', message: 'Todo not found' });
+    }
+  } catch (err) {
+    res.status(500).json({ status: 'error', message: 'Failed to delete todo' });
+  }
+});
+
 app.delete('/todos', async (_req, res) => {
   try {
     await Todo.deleteMany({});
