@@ -8,7 +8,7 @@ async function connectDB() {
     await mongoose.connect(process.env.MONGODB_URI);
     console.info('MongoDB connected');
   } catch (err) {
-    console.error(`MongoDB connection error: ${err}`);
+    console.error(err);
     process.exit(1);
   }
 }
@@ -18,7 +18,7 @@ async function disconnectDB() {
     await mongoose.disconnect();
     console.info('MongoDB disconnected');
   } catch (err) {
-    console.error(`MongoDB disconnection error: ${err}`);
+    console.error(err);
     process.exit(1);
   }
 }

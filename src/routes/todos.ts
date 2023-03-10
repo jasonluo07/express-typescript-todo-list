@@ -8,6 +8,7 @@ router.get('', async (_req, res) => {
     const todos: ITodo[] = await Todo.find({});
     res.status(200).json({ status: 'success', data: todos });
   } catch (err) {
+    console.error(err);
     res.status(500).json({ status: 'error', message: 'Failed to fetch todos' });
   }
 });
@@ -21,6 +22,7 @@ router.post('', async (req, res) => {
     await todo.save();
     res.status(201).json({ status: 'success', data: todo });
   } catch (err) {
+    console.error(err);
     res.status(500).json({ status: 'error', message: 'Failed to create todo' });
   }
 });
@@ -30,6 +32,7 @@ router.delete('', async (_req, res) => {
     await Todo.deleteMany({});
     res.status(200).json({ status: 'success', message: 'All todos deleted' });
   } catch (err) {
+    console.error(err);
     res.status(500).json({ status: 'error', message: 'Failed to delete todos' });
   }
 });
@@ -44,6 +47,7 @@ router.get('/:id', async (req, res) => {
       res.status(404).json({ status: 'fail', message: 'Todo not found' });
     }
   } catch (err) {
+    console.error(err);
     res.status(500).json({ status: 'error', message: 'Failed to fetch todo' });
   }
 });
@@ -65,6 +69,7 @@ router.put('/:id', async (req, res) => {
       res.status(404).json({ status: 'fail', message: 'Todo not found' });
     }
   } catch (err) {
+    console.error(err);
     res.status(500).json({ status: 'error', message: 'Failed to update todo' });
   }
 });
@@ -78,6 +83,7 @@ router.delete('/:id', async (req, res) => {
       res.status(404).json({ status: 'fail', message: 'Todo not found' });
     }
   } catch (err) {
+    console.error(err);
     res.status(500).json({ status: 'error', message: 'Failed to delete todo' });
   }
 });
