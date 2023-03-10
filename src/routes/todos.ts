@@ -6,10 +6,11 @@ const router = Router();
 router.get('', async (_req, res) => {
   try {
     const todos: ITodo[] = await Todo.find({});
-    res.status(200).json({ status: 'success', data: todos });
+
+    return res.status(200).json({ status: 'success', data: todos });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ status: 'error', message: 'Failed to fetch todos' });
+    return res.status(500).json({ status: 'error', message: 'Failed to fetch todos' });
   }
 });
 
@@ -20,20 +21,22 @@ router.post('', async (req, res) => {
       isDone: req.body.isDone,
     });
     await todo.save();
-    res.status(201).json({ status: 'success', data: todo });
+
+    return res.status(201).json({ status: 'success', data: todo });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ status: 'error', message: 'Failed to create todo' });
+    return res.status(500).json({ status: 'error', message: 'Failed to create todo' });
   }
 });
 
 router.delete('', async (_req, res) => {
   try {
     await Todo.deleteMany({});
-    res.status(200).json({ status: 'success', message: 'All todos deleted' });
+
+    return res.status(200).json({ status: 'success', message: 'All todos deleted' });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ status: 'error', message: 'Failed to delete todos' });
+    return res.status(500).json({ status: 'error', message: 'Failed to delete todos' });
   }
 });
 
@@ -41,14 +44,13 @@ router.get('/:id', async (req, res) => {
   try {
     const todo: ITodo | null = await Todo.findById(req.params.id);
 
-    if (todo) {
-      res.status(200).json({ status: 'success', data: todo });
-    } else {
-      res.status(404).json({ status: 'fail', message: 'Todo not found' });
+    if (!todo) {
+      return res.status(404).json({ status: 'fail', message: 'Todo not found' });
     }
+    return res.status(200).json({ status: 'success', data: todo });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ status: 'error', message: 'Failed to fetch todo' });
+    return res.status(500).json({ status: 'error', message: 'Failed to fetch todo' });
   }
 });
 
@@ -63,28 +65,27 @@ router.put('/:id', async (req, res) => {
       { new: true }, // 回傳更新後的資料
     );
 
-    if (updatedTodo) {
-      res.status(200).json({ status: 'success', data: updatedTodo });
-    } else {
-      res.status(404).json({ status: 'fail', message: 'Todo not found' });
+    if (!updatedTodo) {
+      return res.status(404).json({ status: 'fail', message: 'Todo not found' });
     }
+    return res.status(200).json({ status: 'success', data: updatedTodo });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ status: 'error', message: 'Failed to update todo' });
+    return res.status(500).json({ status: 'error', message: 'Failed to update todo' });
   }
 });
 
 router.delete('/:id', async (req, res) => {
   try {
     const deletedTodo: ITodo | null = await Todo.findByIdAndDelete(req.params.id);
-    if (deletedTodo) {
-      res.status(200).json({ status: 'success', data: deletedTodo });
-    } else {
-      res.status(404).json({ status: 'fail', message: 'Todo not found' });
+
+    if (!deletedTodo) {
+      return res.status(404).json({ status: 'fail', message: 'Todo not found' });
     }
+    return res.status(200).json({ status: 'success', data: deletedTodo });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ status: 'error', message: 'Failed to delete todo' });
+    return res.status(500).json({ status: 'error', message: 'Failed to delete todo' });
   }
 });
 
