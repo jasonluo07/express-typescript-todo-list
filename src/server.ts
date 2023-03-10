@@ -4,7 +4,7 @@ import app from './app';
 const HOST = process.env.HOST ?? 'localhost';
 const PORT = process.env.PORT ?? '3000';
 
-(async function startApp() {
+(async () => {
   try {
     await connectDB();
     app.listen(PORT, () => {

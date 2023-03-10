@@ -16,13 +16,13 @@ router.get('', async (_req, res) => {
 
 router.post('', async (req, res) => {
   try {
-    const todo: ITodo = new Todo({
+    const newTodo: ITodo = new Todo({
       title: req.body.title,
       isDone: req.body.isDone,
     });
-    await todo.save();
+    await newTodo.save();
 
-    return res.status(201).json({ status: 'success', data: todo });
+    return res.status(201).json({ status: 'success', data: newTodo });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ status: 'error', message: 'Failed to create todo' });
