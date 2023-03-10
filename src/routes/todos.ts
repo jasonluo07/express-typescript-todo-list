@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import Todo, { ITodo } from '../models/todo';
+import { ApiResponseStatus, respond } from './utils/apiResponse';
 
 const router = Router();
 
@@ -7,10 +8,10 @@ router.get('', async (_req, res) => {
   try {
     const todos: ITodo[] = await Todo.find({});
 
-    return res.status(200).json({ status: 'success', data: todos });
+    return respond(res, 200, ApiResponseStatus.Success, 'Todos fetched successfully', todos);
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ status: 'error', message: 'Failed to fetch todos' });
+    return respond(res, 500, ApiResponseStatus.Error, 'Failed to fetch todos', null);
   }
 });
 
@@ -22,10 +23,10 @@ router.post('', async (req, res) => {
     });
     await newTodo.save();
 
-    return res.status(201).json({ status: 'success', data: newTodo });
+    return respond(res, 201, ApiResponseStatus.Success, 'Todo created successfully', newTodo);
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ status: 'error', message: 'Failed to create todo' });
+    return respond(res, 500, ApiResponseStatus.Error, 'Failed to create todo', null);
   }
 });
 
@@ -33,10 +34,10 @@ router.delete('', async (_req, res) => {
   try {
     await Todo.deleteMany({});
 
-    return res.status(200).json({ status: 'success', message: 'All todos deleted' });
+    return respond(res, 200, ApiResponseStatus.Success, 'All todos deleted successfully', null);
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ status: 'error', message: 'Failed to delete todos' });
+    return respond(res, 500, ApiResponseStatus.Error, 'Failed to delete todos', null);
   }
 });
 
@@ -45,12 +46,12 @@ router.get('/:id', async (req, res) => {
     const todo: ITodo | null = await Todo.findById(req.params.id);
 
     if (!todo) {
-      return res.status(404).json({ status: 'fail', message: 'Todo not found' });
+      return respond(res, 404, ApiResponseStatus.Fail, 'Todo not found', null);
     }
-    return res.status(200).json({ status: 'success', data: todo });
+    return respond(res, 200, ApiResponseStatus.Success, 'Todo fetched successfully', todo);
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ status: 'error', message: 'Failed to fetch todo' });
+    return respond(res, 500, ApiResponseStatus.Error, 'Failed to fetch todo', null);
   }
 });
 
@@ -66,12 +67,12 @@ router.put('/:id', async (req, res) => {
     );
 
     if (!updatedTodo) {
-      return res.status(404).json({ status: 'fail', message: 'Todo not found' });
+      return respond(res, 404, ApiResponseStatus.Fail, 'Todo not found', null);
     }
-    return res.status(200).json({ status: 'success', data: updatedTodo });
+    return respond(res, 200, ApiResponseStatus.Success, 'Todo updated successfully', updatedTodo);
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ status: 'error', message: 'Failed to update todo' });
+    return respond(res, 500, ApiResponseStatus.Error, 'Failed to update todo', null);
   }
 });
 
@@ -80,12 +81,12 @@ router.delete('/:id', async (req, res) => {
     const deletedTodo: ITodo | null = await Todo.findByIdAndDelete(req.params.id);
 
     if (!deletedTodo) {
-      return res.status(404).json({ status: 'fail', message: 'Todo not found' });
+      return respond(res, 404, ApiResponseStatus.Fail, 'Todo not found', null);
     }
-    return res.status(200).json({ status: 'success', data: deletedTodo });
+    return respond(res, 200, ApiResponseStatus.Success, 'Todo deleted successfully', deletedTodo);
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ status: 'error', message: 'Failed to delete todo' });
+    return respond(res, 500, ApiResponseStatus.Error, 'Failed to delete todo', null);
   }
 });
 
