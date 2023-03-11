@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import Todo, { ITodo } from '../models/todo';
-import { ApiResponseStatus, respond } from './utils/apiResponse';
+import { ApiResponseStatus, respond } from '../utils/apiResponse';
 import { StatusCodes } from 'http-status-codes';
 
 const router = Router();

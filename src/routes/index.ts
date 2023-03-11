@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import todos from './todos';
-import { ApiResponseStatus, respond } from './utils/apiResponse';
+import { ApiResponseStatus, respond } from '../utils/apiResponse';
 import { StatusCodes } from 'http-status-codes';
 
 const router = Router();
