@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
 import Todo, { ITodo } from '../models/todo';
 import { ApiResponseStatus } from '../types/apiResponse';
-import { respond } from '../utils/apiResponse';
-import { StatusCodes } from 'http-status-codes';
+import respond from '../utils/apiResponse';
 
 // 取得所有 todos
 export async function getAllTodos(_req: Request, res: Response) {

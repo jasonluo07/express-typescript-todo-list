@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import bcrypt from 'bcrypt';
-import User, { IUser } from '../models/user';
-import { ApiResponseStatus } from '../types/apiResponse';
-import { respond } from '../utils/apiResponse';
 import { StatusCodes } from 'http-status-codes';
 import jwt from 'jsonwebtoken';
+import User, { IUser } from '../models/user';
+import { ApiResponseStatus } from '../types/apiResponse';
+import respond from '../utils/apiResponse';
 
 const router = Router();
 
@@ -29,7 +29,7 @@ router.post('/register', async (req, res) => {
     await user.save();
 
     // 簽發 token
-    const token = signToken(user._id);
+    const token = signToken(user.id);
 
     return respond(res, StatusCodes.CREATED, ApiResponseStatus.Success, 'User registered successfully', {
       token,
@@ -56,7 +56,7 @@ router.post('/login', async (req, res) => {
     }
 
     // 簽發 token
-    const token = signToken(user._id);
+    const token = signToken(user.id);
 
     return respond(res, StatusCodes.OK, ApiResponseStatus.Success, 'User logged in successfully', { token, user });
   } catch (err) {

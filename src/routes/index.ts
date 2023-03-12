@@ -1,9 +1,9 @@
 import { Router } from 'express';
+import { StatusCodes } from 'http-status-codes';
 import auth from './auth';
 import todos from './todos';
 import { ApiResponseStatus } from '../types/apiResponse';
-import { respond } from '../utils/apiResponse';
-import { StatusCodes } from 'http-status-codes';
+import respond from '../utils/apiResponse';
 
 const router = Router();
 

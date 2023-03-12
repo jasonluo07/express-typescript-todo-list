@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { ApiResponseStatus } from '../types/apiResponse';
-import { respond } from '../utils/apiResponse';
+import respond from '../utils/apiResponse';
 import jwt from 'jsonwebtoken';
 
 declare global {
@@ -18,7 +18,7 @@ interface IDecodedToken {
   userId: string;
 }
 
-export function authMiddleware(req: Request, res: Response, next: NextFunction) {
+export default function authMiddleware(req: Request, res: Response, next: NextFunction) {
   const token = req.headers.authorization?.replace('Bearer ', '');
   if (!token) {
     return respond(res, StatusCodes.UNAUTHORIZED, ApiResponseStatus.Fail, 'No token provided', null);

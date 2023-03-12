@@ -7,7 +7,7 @@ import {
   updateTodoById,
   deleteTodoById,
 } from '../controllers/todosController';
-import { authMiddleware } from '../middleware/authMiddleware';
+import authMiddleware from '../middleware/authMiddleware';
 
 const router = Router();
 
