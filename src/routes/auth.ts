@@ -4,8 +4,13 @@ import User, { IUser } from '../models/user';
 import { ApiResponseStatus } from '../types/apiResponse';
 import { respond } from '../utils/apiResponse';
 import { StatusCodes } from 'http-status-codes';
+import jwt from 'jsonwebtoken';
 
 const router = Router();
+
+function signToken(userId: string) {
+  return jwt.sign({ userId }, process.env.JWT_SECRET_KEY!, { expiresIn: '1h' });
+}
 
 router.post('/register', async (req, res) => {
   try {
@@ -15,7 +20,7 @@ router.post('/register', async (req, res) => {
       return respond(res, StatusCodes.BAD_REQUEST, ApiResponseStatus.Fail, 'Email already registered', null);
     }
 
-     // 建立新的使用者
+    // 建立新的使用者
     const hashedPassword = await bcrypt.hash(req.body.password, 12);
     const user: IUser = new User({
       email: req.body.email,
@@ -23,7 +28,13 @@ router.post('/register', async (req, res) => {
     });
     await user.save();
 
-    return respond(res, StatusCodes.CREATED, ApiResponseStatus.Success, 'User registered successfully', user);
+    // 簽發 token
+    const token = signToken(user._id);
+
+    return respond(res, StatusCodes.CREATED, ApiResponseStatus.Success, 'User registered successfully', {
+      token,
+      user,
+    });
   } catch (err) {
     console.error(err);
     return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiResponseStatus.Error, 'Failed to registered user', null);
@@ -44,10 +55,10 @@ router.post('/login', async (req, res) => {
       return respond(res, StatusCodes.UNAUTHORIZED, ApiResponseStatus.Fail, 'Invalid password', null);
     }
 
-    // 生成 token
-    // ...
+    // 簽發 token
+    const token = signToken(user._id);
 
-    return respond(res, StatusCodes.OK, ApiResponseStatus.Success, 'User logged in successfully', user);
+    return respond(res, StatusCodes.OK, ApiResponseStatus.Success, 'User logged in successfully', { token, user });
   } catch (err) {
     console.error(err);
     return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiResponseStatus.Error, 'Failed to log in', null);
