@@ -25,7 +25,7 @@ export default function authMiddleware(req: Request, res: Response, next: NextFu
   }
 
   try {
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY!) as IDecodedToken;
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY ?? '') as IDecodedToken;
     req.user = { _id: decodedToken.userId };
     return next();
   } catch (err) {

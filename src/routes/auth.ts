@@ -9,7 +9,7 @@ import respond from '../utils/apiResponse';
 const router = Router();
 
 function signToken(userId: string) {
-  return jwt.sign({ userId }, process.env.JWT_SECRET_KEY!, { expiresIn: '1h' });
+  return jwt.sign({ userId }, process.env.JWT_SECRET_KEY ?? '', { expiresIn: '1h' });
 }
 
 router.post('/register', async (req, res) => {
