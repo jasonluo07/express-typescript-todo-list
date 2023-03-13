@@ -7,7 +7,7 @@ import respond from '../utils/apiResponse';
 declare module 'express' {
   interface Request {
     user?: {
-      _id: string;
+      id: string;
     };
   }
 }
@@ -24,7 +24,7 @@ export default function authMiddleware(req: Request, res: Response, next: NextFu
 
   try {
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY ?? '') as IDecodedToken;
-    req.user = { _id: decodedToken.userId };
+    req.user = { id: decodedToken.userId };
     return next();
   } catch (err) {
     console.error(err);
