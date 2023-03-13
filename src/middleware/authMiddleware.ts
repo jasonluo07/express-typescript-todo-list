@@ -4,13 +4,11 @@ import jwt from 'jsonwebtoken';
 import { ApiResponseStatuses } from '../types/apiResponse';
 import respond from '../utils/apiResponse';
 
-declare global {
-  namespace Express {
-    interface Request {
-      user?: {
-        _id: string;
-      };
-    }
+declare module 'express' {
+  interface Request {
+    user?: {
+      _id: string;
+    };
   }
 }
 
