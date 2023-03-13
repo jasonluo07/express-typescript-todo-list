@@ -8,8 +8,7 @@
   "rules": {
     "prettier/prettier": ["error", { "singleQuote": true }],
     "import/extensions": ["error", "ignorePackages", { "ts": "never" }],
-    "no-console": ["error", { "allow": ["info", "error"] }],
-    "no-shadow": ["error", { "typeClassifications": { "typeAliases": false, "enums": false, "interfaces": true } }]
+    "no-console": ["error", { "allow": ["info", "error"] }]
   },
   "settings": {
     "import/resolver": {
