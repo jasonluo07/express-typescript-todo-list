@@ -8,16 +8,17 @@ import {
   deleteTodoById,
 } from '../controllers/todosController';
 import authMiddleware from '../middleware/authMiddleware';
+import validateTodoData from '../middleware/validateTodoData';
 
 const router = Router();
 
 router.use(authMiddleware);
 
 router.get('', getAllTodos);
-router.post('', createNewTodo);
+router.post('', validateTodoData, createNewTodo);
 router.delete('', deleteAllTodos);
 router.get('/:id', getTodoById);
-router.put('/:id', updateTodoById);
+router.put('/:id', validateTodoData, updateTodoById);
 router.delete('/:id', deleteTodoById);
 
 export default router;
