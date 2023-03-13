@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import Todo, { ITodo } from '../models/todo';
-import { ApiResponseStatus } from '../types/apiResponse';
+import { ApiResponseStatuses } from '../types/apiResponse';
 import respond from '../utils/apiResponse';
 
 // 取得所有 todos
@@ -9,10 +9,10 @@ export async function getAllTodos(_req: Request, res: Response) {
   try {
     const todos: ITodo[] = await Todo.find({});
 
-    return respond(res, StatusCodes.OK, ApiResponseStatus.Success, 'Todos fetched successfully', todos);
+    return respond(res, StatusCodes.OK, ApiResponseStatuses.SUCCESS, 'Todos fetched successfully', todos);
   } catch (err) {
     console.error(err);
-    return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiResponseStatus.Error, 'Failed to fetch todos', null);
+    return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiResponseStatuses.ERROR, 'Failed to fetch todos', null);
   }
 }
 
@@ -25,10 +25,10 @@ export async function createNewTodo(req: Request, res: Response) {
     });
     await newTodo.save();
 
-    return respond(res, StatusCodes.CREATED, ApiResponseStatus.Success, 'Todo created successfully', newTodo);
+    return respond(res, StatusCodes.CREATED, ApiResponseStatuses.SUCCESS, 'Todo created successfully', newTodo);
   } catch (err) {
     console.error(err);
-    return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiResponseStatus.Error, 'Failed to create todo', null);
+    return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiResponseStatuses.ERROR, 'Failed to create todo', null);
   }
 }
 
@@ -36,10 +36,10 @@ export async function createNewTodo(req: Request, res: Response) {
 export async function deleteAllTodos(_req: Request, res: Response) {
   await Todo.deleteMany({});
   try {
-    return respond(res, StatusCodes.OK, ApiResponseStatus.Success, 'All todos deleted successfully', null);
+    return respond(res, StatusCodes.OK, ApiResponseStatuses.SUCCESS, 'All todos deleted successfully', null);
   } catch (err) {
     console.error(err);
-    return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiResponseStatus.Error, 'Failed to delete todos', null);
+    return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiResponseStatuses.ERROR, 'Failed to delete todos', null);
   }
 }
 
@@ -49,12 +49,12 @@ export async function getTodoById(req: Request, res: Response) {
     const todo: ITodo | null = await Todo.findById(req.params.id);
 
     if (!todo) {
-      return respond(res, StatusCodes.NOT_FOUND, ApiResponseStatus.Fail, 'Todo not found', null);
+      return respond(res, StatusCodes.NOT_FOUND, ApiResponseStatuses.FAIL, 'Todo not found', null);
     }
-    return respond(res, StatusCodes.OK, ApiResponseStatus.Success, 'Todo fetched successfully', todo);
+    return respond(res, StatusCodes.OK, ApiResponseStatuses.SUCCESS, 'Todo fetched successfully', todo);
   } catch (err) {
     console.error(err);
-    return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiResponseStatus.Error, 'Failed to fetch todo', null);
+    return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiResponseStatuses.ERROR, 'Failed to fetch todo', null);
   }
 }
 
@@ -71,12 +71,12 @@ export async function updateTodoById(req: Request, res: Response) {
     );
 
     if (!updatedTodo) {
-      return respond(res, StatusCodes.NOT_FOUND, ApiResponseStatus.Fail, 'Todo not found', null);
+      return respond(res, StatusCodes.NOT_FOUND, ApiResponseStatuses.FAIL, 'Todo not found', null);
     }
-    return respond(res, StatusCodes.OK, ApiResponseStatus.Success, 'Todo updated successfully', updatedTodo);
+    return respond(res, StatusCodes.OK, ApiResponseStatuses.SUCCESS, 'Todo updated successfully', updatedTodo);
   } catch (err) {
     console.error(err);
-    return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiResponseStatus.Error, 'Failed to update todo', null);
+    return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiResponseStatuses.ERROR, 'Failed to update todo', null);
   }
 }
 
@@ -86,11 +86,11 @@ export async function deleteTodoById(req: Request, res: Response) {
     const deletedTodo: ITodo | null = await Todo.findByIdAndDelete(req.params.id);
 
     if (!deletedTodo) {
-      return respond(res, StatusCodes.NOT_FOUND, ApiResponseStatus.Fail, 'Todo not found', null);
+      return respond(res, StatusCodes.NOT_FOUND, ApiResponseStatuses.FAIL, 'Todo not found', null);
     }
-    return respond(res, StatusCodes.OK, ApiResponseStatus.Success, 'Todo deleted successfully', deletedTodo);
+    return respond(res, StatusCodes.OK, ApiResponseStatuses.SUCCESS, 'Todo deleted successfully', deletedTodo);
   } catch (err) {
     console.error(err);
-    return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiResponseStatus.Error, 'Failed to delete todo', null);
+    return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiResponseStatuses.ERROR, 'Failed to delete todo', null);
   }
 }

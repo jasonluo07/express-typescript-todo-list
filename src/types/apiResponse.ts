@@ -1,12 +1,12 @@
-export enum ApiResponseStatus {
-  Success = 'success',
-  Fail = 'fail',
-  Error = 'error',
+export enum ApiResponseStatuses {
+  SUCCESS = 'Success',
+  FAIL = 'Fail',
+  ERROR = 'Error',
 }
 
 export interface ApiResponse<T> {
   code: number;
-  status: ApiResponseStatus;
+  status: ApiResponseStatuses;
   message: string;
   data: T | null;
 }

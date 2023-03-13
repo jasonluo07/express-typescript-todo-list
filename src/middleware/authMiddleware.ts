@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import { ApiResponseStatus } from '../types/apiResponse';
+import { ApiResponseStatuses } from '../types/apiResponse';
 import respond from '../utils/apiResponse';
 import jwt from 'jsonwebtoken';
 
@@ -21,7 +21,7 @@ interface IDecodedToken {
 export default function authMiddleware(req: Request, res: Response, next: NextFunction) {
   const token = req.headers.authorization?.replace('Bearer ', '');
   if (!token) {
-    return respond(res, StatusCodes.UNAUTHORIZED, ApiResponseStatus.Fail, 'No token provided', null);
+    return respond(res, StatusCodes.UNAUTHORIZED, ApiResponseStatuses.FAIL, 'No token provided', null);
   }
 
   try {
@@ -30,6 +30,6 @@ export default function authMiddleware(req: Request, res: Response, next: NextFu
     next();
   } catch (err) {
     console.error(err);
-    return respond(res, StatusCodes.UNAUTHORIZED, ApiResponseStatus.Fail, 'Invalid token', null);
+    return respond(res, StatusCodes.UNAUTHORIZED, ApiResponseStatuses.FAIL, 'Invalid token', null);
   }
 }
