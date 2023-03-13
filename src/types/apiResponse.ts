@@ -1,3 +1,5 @@
+import { StatusCodes } from 'http-status-codes';
+
 export enum ApiResponseStatuses {
   SUCCESS = 'Success',
   FAIL = 'Fail',
@@ -5,7 +7,7 @@ export enum ApiResponseStatuses {
 }
 
 export interface ApiResponse<T> {
-  code: number;
+  code: StatusCodes;
   status: ApiResponseStatuses;
   message: string;
   data: T | null;
