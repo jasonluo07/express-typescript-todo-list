@@ -1,11 +1,6 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import { boolean, object, string } from 'zod';
 
-export interface ITodo extends Document {
-  title: string;
-  isDone: boolean;
-}
-
 const TodoSchema = new Schema(
   {
     title: {
@@ -21,11 +16,14 @@ const TodoSchema = new Schema(
   { versionKey: false }, // 禁用自動添加 versionKey
 );
 
+export interface ITodo extends Document {
+  title: string;
+  isDone: boolean;
+}
+
 export const todoSchemaValidator = object({
   title: string().min(1).max(50),
   isDone: boolean(),
 });
 
-const Todo = mongoose.model<ITodo>('Todo', TodoSchema);
-
-export default Todo;
+export default mongoose.model<ITodo>('Todo', TodoSchema);
