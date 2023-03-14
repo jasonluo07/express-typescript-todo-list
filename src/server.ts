@@ -1,4 +1,4 @@
-import { connectDB } from './database';
+import database from './database';
 import app from './app';
 
 const HOST = process.env.HOST ?? 'localhost';
@@ -6,7 +6,7 @@ const PORT = process.env.PORT ?? '3000';
 
 (async () => {
   try {
-    await connectDB();
+    await database.connectDB();
     app.listen(PORT, () => {
       console.info(`App listening on http://${HOST}:${PORT}`);
     });

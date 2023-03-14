@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 async function connectDB() {
   try {
     if (!process.env.MONGODB_URI) {
-      throw new Error('MongoDB connection error: MONGODB_URI not set');
+      throw new Error('MONGODB_URI not set');
     }
     await mongoose.connect(process.env.MONGODB_URI);
     console.info('MongoDB connected');
@@ -23,4 +23,4 @@ async function disconnectDB() {
   }
 }
 
-export { connectDB, disconnectDB };
+export default { connectDB, disconnectDB };

@@ -9,6 +9,7 @@ export default function validateTodoData(req: Request, res: Response, next: Next
   try {
     const validatedData = todoSchemaValidator.parse(req.body);
     req.body = validatedData;
+
     return next();
   } catch (err) {
     console.error(err);

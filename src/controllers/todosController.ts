@@ -34,8 +34,8 @@ async function createNewTodo(req: Request, res: Response) {
 
 // 刪除所有 todos
 async function deleteAllTodos(_req: Request, res: Response) {
-  await Todo.deleteMany({});
   try {
+    await Todo.deleteMany({});
     return respond(res, StatusCodes.OK, ApiResponseStatuses.SUCCESS, 'All todos deleted successfully', null);
   } catch (err) {
     console.error(err);
