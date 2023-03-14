@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document } from 'mongoose';
+import { object, string } from 'zod';
 
 const UserSchema = new Schema(
   {
@@ -21,5 +22,10 @@ export interface IUser extends Document {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export const userSchemaValidator = object({
+  email: string().email(),
+  password: string().min(8).max(20),
+});
 
 export default mongoose.model<IUser>('User', UserSchema);
