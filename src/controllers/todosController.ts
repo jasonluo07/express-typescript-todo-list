@@ -5,7 +5,7 @@ import { ApiResponseStatuses } from '../types/apiResponse';
 import respond from '../utils/apiResponse';
 
 // 取得所有 todos
-export async function getAllTodos(_req: Request, res: Response) {
+async function getAllTodos(_req: Request, res: Response) {
   try {
     const todos: ITodo[] = await Todo.find({});
 
@@ -17,7 +17,7 @@ export async function getAllTodos(_req: Request, res: Response) {
 }
 
 // 建立新的 todo
-export async function createNewTodo(req: Request, res: Response) {
+async function createNewTodo(req: Request, res: Response) {
   try {
     const newTodo: ITodo = new Todo({
       title: req.body.title,
@@ -33,7 +33,7 @@ export async function createNewTodo(req: Request, res: Response) {
 }
 
 // 刪除所有 todos
-export async function deleteAllTodos(_req: Request, res: Response) {
+async function deleteAllTodos(_req: Request, res: Response) {
   await Todo.deleteMany({});
   try {
     return respond(res, StatusCodes.OK, ApiResponseStatuses.SUCCESS, 'All todos deleted successfully', null);
@@ -44,7 +44,7 @@ export async function deleteAllTodos(_req: Request, res: Response) {
 }
 
 // 取得指定的 todo
-export async function getTodoById(req: Request, res: Response) {
+async function getTodoById(req: Request, res: Response) {
   try {
     const todo: ITodo | null = await Todo.findById(req.params.id);
 
@@ -59,7 +59,7 @@ export async function getTodoById(req: Request, res: Response) {
 }
 
 // 更新指定的 todo
-export async function updateTodoById(req: Request, res: Response) {
+async function updateTodoById(req: Request, res: Response) {
   try {
     const updatedTodo: ITodo | null = await Todo.findByIdAndUpdate(
       req.params.id,
@@ -81,7 +81,7 @@ export async function updateTodoById(req: Request, res: Response) {
 }
 
 // 刪除指定的 todo
-export async function deleteTodoById(req: Request, res: Response) {
+async function deleteTodoById(req: Request, res: Response) {
   try {
     const deletedTodo: ITodo | null = await Todo.findByIdAndDelete(req.params.id);
 
@@ -94,3 +94,5 @@ export async function deleteTodoById(req: Request, res: Response) {
     return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiResponseStatuses.ERROR, 'Failed to delete todo', null);
   }
 }
+
+export default { getAllTodos, createNewTodo, deleteAllTodos, getTodoById, updateTodoById, deleteTodoById };
