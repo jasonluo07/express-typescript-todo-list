@@ -1,0 +1,23 @@
+{
+  "ALL_TODOS_DELETED_SUCCESSFULLY": "All Todos Deleted Successfully",
+  "ALL_TODOS_FETCHED_SUCCESSFULLY": "All Todos Fetched Successfully",
+  "EMAIL_ALREADY_REGISTERED": "Email Already Registered",
+  "FAILED_TO_CREATE_ONE_TODO": "Failed to Create One Todo",
+  "FAILED_TO_DELETE_ALL_TODOS": "Failed to Delete All Todos",
+  "FAILED_TO_DELETE_ONE_TODO": "Failed to Delete One Todo",
+  "FAILED_TO_FETCH_ALL_TODOS": "Failed to Fetch All Todos",
+  "FAILED_TO_FETCH_ONE_TODO": "Failed to Fetch Todo",
+  "FAILED_TO_LOG_IN": "Failed to Log in",
+  "FAILED_TO_REGISTER_USER": "Failed to Register User",
+  "FAILED_TO_UPDATE_ONE_TODO": "Failed to Update One Todo",
+  "HELLO_WORLD": "Hello, World!",
+  "INVALID_EMAIL": "Invalid Email",
+  "INVALID_PASSWORD": "Invalid Password",
+  "ONE_TODO_CREATED_SUCCESSFULLY": "One Todo Created Successfully",
+  "ONE_TODO_DELETED_SUCCESSFULLY": "One Todo Deleted Successfully",
+  "ONE_TODO_FETCHED_SUCCESSFULLY": "One Todo Fetched Successfully",
+  "ONE_TODO_UPDATED_SUCCESSFULLY": "One Todo Updated Successfully",
+  "TODO_NOT_FOUND": "Todo Not Found",
+  "USER_LOGGED_IN_SUCCESSFULLY": "User Logged in Successfully",
+  "USER_REGISTERED_SUCCESSFULLY": "User Registered Successfully"
+}

@@ -1,0 +1,23 @@
+{
+  "ALL_TODOS_DELETED_SUCCESSFULLY": "成功刪除所有待辦事項",
+  "ALL_TODOS_FETCHED_SUCCESSFULLY": "成功取得所有待辦事項",
+  "EMAIL_ALREADY_REGISTERED": "電子郵件已註冊",
+  "FAILED_TO_CREATE_ONE_TODO": "無法新增一筆待辦事項",
+  "FAILED_TO_DELETE_ALL_TODOS": "無法刪除所有待辦事項",
+  "FAILED_TO_DELETE_ONE_TODO": "無法刪除一筆待辦事項",
+  "FAILED_TO_FETCH_ALL_TODOS": "無法取得所有待辦事項",
+  "FAILED_TO_FETCH_ONE_TODO": "無法取得一筆待辦事項",
+  "FAILED_TO_LOG_IN": "登入失敗",
+  "FAILED_TO_REGISTER_USER": "使用者註冊失敗",
+  "FAILED_TO_UPDATE_ONE_TODO": "無法更新待辦事項",
+  "HELLO_WORLD": "哈囉，世界！",
+  "INVALID_EMAIL": "無效的電子郵件",
+  "INVALID_PASSWORD": "無效的密碼",
+  "ONE_TODO_CREATED_SUCCESSFULLY": "成功新增一筆待辦事項",
+  "ONE_TODO_DELETED_SUCCESSFULLY": "成功刪除一筆待辦事項",
+  "ONE_TODO_FETCHED_SUCCESSFULLY": "成功取得一筆待辦事項",
+  "ONE_TODO_UPDATED_SUCCESSFULLY": "成功更新一筆待辦事項",
+  "TODO_NOT_FOUND": "找不到待辦事項",
+  "USER_LOGGED_IN_SUCCESSFULLY": "使用者成功登入",
+  "USER_REGISTERED_SUCCESSFULLY": "使用者成功註冊"
+}
