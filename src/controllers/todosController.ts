@@ -95,6 +95,26 @@ async function updateTodoById(req: Request, res: Response) {
   }
 }
 
+// 開關指定的 todo 的 isDone 欄位
+async function toggleTodoById(req: Request, res: Response) {
+  try {
+    const todo: ITodo | null = await Todo.findById(req.params.id);
+
+    if (!todo) {
+      return respond(res, StatusCodes.NOT_FOUND, ApiStatuses.FAIL, req.t('TODO_NOT_FOUND'), null);
+    }
+
+    // 開關 isDone
+    todo.isDone = !todo.isDone;
+    await todo.save();
+
+    return respond(res, StatusCodes.OK, ApiStatuses.SUCCESS, req.t('ONE_TODO_UPDATED_SUCCESSFULLY'), todo);
+  } catch (err) {
+    console.error(err);
+    return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiStatuses.ERROR, req.t('FAILED_TO_UPDATE_ONE_TODO'), null);
+  }
+}
+
 // 刪除指定的 todo
 async function deleteTodoById(req: Request, res: Response) {
   try {
@@ -110,4 +130,12 @@ async function deleteTodoById(req: Request, res: Response) {
   }
 }
 
-export default { getAllTodos, createNewTodo, deleteAllTodos, getTodoById, updateTodoById, deleteTodoById };
+export default {
+  getAllTodos,
+  createNewTodo,
+  deleteAllTodos,
+  getTodoById,
+  updateTodoById,
+  toggleTodoById,
+  deleteTodoById,
+};
