@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import express from 'express';
-import i18n from './middleware/i18nMiddleware';
+import i18n from './middlewares/i18nMiddleware';
 
 import router from './routes';
 
