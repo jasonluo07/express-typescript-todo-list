@@ -15,7 +15,7 @@ async function register(req: Request, res: Response) {
     // 檢查是否已存在該電子郵件的使用者
     const existingUser = await User.findOne({ email: req.body.email });
     if (existingUser) {
-      return respond(res, StatusCodes.BAD_REQUEST, ApiResponseStatuses.FAIL, 'Email already registered', null);
+      return respond(res, StatusCodes.BAD_REQUEST, ApiResponseStatuses.FAIL, req.t('EMAIL_ALREADY_REGISTERED'), null);
     }
 
     // 建立新的使用者
@@ -29,7 +29,7 @@ async function register(req: Request, res: Response) {
     // 簽發 token
     const token = signToken(user.id);
 
-    return respond(res, StatusCodes.CREATED, ApiResponseStatuses.SUCCESS, 'User registered successfully', {
+    return respond(res, StatusCodes.CREATED, ApiResponseStatuses.SUCCESS, req.t('USER_REGISTERED_SUCCESSFULLY'), {
       token,
       user,
     });
@@ -39,7 +39,7 @@ async function register(req: Request, res: Response) {
       res,
       StatusCodes.INTERNAL_SERVER_ERROR,
       ApiResponseStatuses.ERROR,
-      'Failed to registered user',
+      req.t('FAILED_TO_REGISTER_USER'),
       null,
     );
   }
@@ -50,22 +50,25 @@ async function login(req: Request, res: Response) {
     // 檢查是否已存在該使用者
     const user: IUser | null = await User.findOne({ email: req.body.email });
     if (!user) {
-      return respond(res, StatusCodes.UNAUTHORIZED, ApiResponseStatuses.FAIL, 'Invalid email', null);
+      return respond(res, StatusCodes.UNAUTHORIZED, ApiResponseStatuses.FAIL, req.t('INVALID_EMAIL'), null);
     }
 
     // 檢查是否密碼正確
     const isPasswordValid = await bcrypt.compare(req.body.password, user.password);
     if (!isPasswordValid) {
-      return respond(res, StatusCodes.UNAUTHORIZED, ApiResponseStatuses.FAIL, 'Invalid password', null);
+      return respond(res, StatusCodes.UNAUTHORIZED, ApiResponseStatuses.FAIL, req.t('INVALID_PASSWORD'), null);
     }
 
     // 簽發 token
     const token = signToken(user.id);
 
-    return respond(res, StatusCodes.OK, ApiResponseStatuses.SUCCESS, 'User logged in successfully', { token, user });
+    return respond(res, StatusCodes.OK, ApiResponseStatuses.SUCCESS, req.t('USER_LOGGED_IN_SUCCESSFULLY'), {
+      token,
+      user,
+    });
   } catch (err) {
     console.error(err);
-    return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiResponseStatuses.ERROR, 'Failed to log in', null);
+    return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiResponseStatuses.ERROR, req.t('FAILED_TO_LOG_IN'), null);
   }
 }
 

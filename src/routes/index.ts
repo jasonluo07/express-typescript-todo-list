@@ -7,8 +7,8 @@ import respond from '../utils/apiResponse';
 
 const router = Router();
 
-router.get('/', (_req, res) => {
-  return respond(res, StatusCodes.OK, ApiResponseStatuses.SUCCESS, 'Hello World!', null);
+router.get('/', (req, res) => {
+  return respond(res, StatusCodes.OK, ApiResponseStatuses.SUCCESS, req.t('HELLO_WORLD'), null);
 });
 
 router.use('/api', auth);
