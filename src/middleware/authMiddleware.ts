@@ -20,7 +20,7 @@ export default function authMiddleware(req: Request, res: Response, next: NextFu
   try {
     const token = req.headers.authorization?.replace('Bearer ', '');
     if (!token) {
-      return respond(res, StatusCodes.UNAUTHORIZED, ApiStatuses.FAIL, 'No token provided', null);
+      return respond(res, StatusCodes.UNAUTHORIZED, ApiStatuses.FAIL, req.t('NO_TOKEN_PROVIDED'), null);
     }
 
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY ?? '') as IDecodedToken;
@@ -29,6 +29,6 @@ export default function authMiddleware(req: Request, res: Response, next: NextFu
     return next();
   } catch (err) {
     console.error(err);
-    return respond(res, StatusCodes.UNAUTHORIZED, ApiStatuses.FAIL, 'Invalid token', null);
+    return respond(res, StatusCodes.UNAUTHORIZED, ApiStatuses.FAIL, req.t('INVALID_TOKEN'), null);
   }
 }

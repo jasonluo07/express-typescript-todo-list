@@ -16,6 +16,12 @@ export default function validateUserData(req: Request, res: Response, next: Next
     if (err instanceof ZodError) {
       return respond(res, StatusCodes.BAD_REQUEST, ApiStatuses.FAIL, err.message, null);
     }
-    return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiStatuses.ERROR, 'Failed to validate user data', null);
+    return respond(
+      res,
+      StatusCodes.INTERNAL_SERVER_ERROR,
+      ApiStatuses.ERROR,
+      req.t('FALIED_TO_VALIDATE_USER_DATA'),
+      null,
+    );
   }
 }

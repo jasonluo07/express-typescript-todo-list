@@ -16,6 +16,12 @@ export default function validateTodoData(req: Request, res: Response, next: Next
     if (err instanceof ZodError) {
       return respond(res, StatusCodes.BAD_REQUEST, ApiStatuses.FAIL, err.message, null);
     }
-    return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiStatuses.ERROR, 'Failed to validate todo data', null);
+    return respond(
+      res,
+      StatusCodes.INTERNAL_SERVER_ERROR,
+      ApiStatuses.ERROR,
+      req.t('FAILED_TO_VALIDATE_TODO_DATA'),
+      null,
+    );
   }
 }
