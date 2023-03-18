@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import Todo, { ITodo } from '../models/todo';
-import { ApiResponseStatuses } from '../types/apiResponse';
+import { ApiStatuses } from '../types/apiResponse';
 import respond from '../utils/apiResponse';
 
 // 取得所有 todos
@@ -9,16 +9,10 @@ async function getAllTodos(req: Request, res: Response) {
   try {
     const todos: ITodo[] = await Todo.find({});
 
-    return respond(res, StatusCodes.OK, ApiResponseStatuses.SUCCESS, req.t('ALL_TODOS_FETCHED_SUCCESSFULLY'), todos);
+    return respond(res, StatusCodes.OK, ApiStatuses.SUCCESS, req.t('ALL_TODOS_FETCHED_SUCCESSFULLY'), todos);
   } catch (err) {
     console.error(err);
-    return respond(
-      res,
-      StatusCodes.INTERNAL_SERVER_ERROR,
-      ApiResponseStatuses.ERROR,
-      req.t('FAILED_TO_FETCH_ALL_TODOS'),
-      null,
-    );
+    return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiStatuses.ERROR, req.t('FAILED_TO_FETCH_ALL_TODOS'), null);
   }
 }
 
@@ -31,22 +25,10 @@ async function createNewTodo(req: Request, res: Response) {
     });
     await newTodo.save();
 
-    return respond(
-      res,
-      StatusCodes.CREATED,
-      ApiResponseStatuses.SUCCESS,
-      req.t('ONE_TODO_CREATED_SUCCESSFULLY'),
-      newTodo,
-    );
+    return respond(res, StatusCodes.CREATED, ApiStatuses.SUCCESS, req.t('ONE_TODO_CREATED_SUCCESSFULLY'), newTodo);
   } catch (err) {
     console.error(err);
-    return respond(
-      res,
-      StatusCodes.INTERNAL_SERVER_ERROR,
-      ApiResponseStatuses.ERROR,
-      req.t('FAILED_TO_CREATE_ONE_TODO'),
-      null,
-    );
+    return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiStatuses.ERROR, req.t('FAILED_TO_CREATE_ONE_TODO'), null);
   }
 }
 
@@ -54,13 +36,13 @@ async function createNewTodo(req: Request, res: Response) {
 async function deleteAllTodos(req: Request, res: Response) {
   try {
     await Todo.deleteMany({});
-    return respond(res, StatusCodes.OK, ApiResponseStatuses.SUCCESS, req.t('ALL_TODOS_DELETED_SUCCESSFULLY'), null);
+    return respond(res, StatusCodes.OK, ApiStatuses.SUCCESS, req.t('ALL_TODOS_DELETED_SUCCESSFULLY'), null);
   } catch (err) {
     console.error(err);
     return respond(
       res,
       StatusCodes.INTERNAL_SERVER_ERROR,
-      ApiResponseStatuses.ERROR,
+      ApiStatuses.ERROR,
       req.t('FAILED_TO_DELETE_ALL_TODOS'),
       null,
     );
@@ -73,18 +55,12 @@ async function getTodoById(req: Request, res: Response) {
     const todo: ITodo | null = await Todo.findById(req.params.id);
 
     if (!todo) {
-      return respond(res, StatusCodes.NOT_FOUND, ApiResponseStatuses.FAIL, req.t('TODO_NOT_FOUND'), null);
+      return respond(res, StatusCodes.NOT_FOUND, ApiStatuses.FAIL, req.t('TODO_NOT_FOUND'), null);
     }
-    return respond(res, StatusCodes.OK, ApiResponseStatuses.SUCCESS, req.t('ONE_TODO_FETCHED_SUCCESSFULLY'), todo);
+    return respond(res, StatusCodes.OK, ApiStatuses.SUCCESS, req.t('ONE_TODO_FETCHED_SUCCESSFULLY'), todo);
   } catch (err) {
     console.error(err);
-    return respond(
-      res,
-      StatusCodes.INTERNAL_SERVER_ERROR,
-      ApiResponseStatuses.ERROR,
-      req.t('FAILED_TO_FETCH_ONE_TODO'),
-      null,
-    );
+    return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiStatuses.ERROR, req.t('FAILED_TO_FETCH_ONE_TODO'), null);
   }
 }
 
@@ -101,24 +77,12 @@ async function updateTodoById(req: Request, res: Response) {
     );
 
     if (!updatedTodo) {
-      return respond(res, StatusCodes.NOT_FOUND, ApiResponseStatuses.FAIL, req.t('TODO_NOT_FOUND'), null);
+      return respond(res, StatusCodes.NOT_FOUND, ApiStatuses.FAIL, req.t('TODO_NOT_FOUND'), null);
     }
-    return respond(
-      res,
-      StatusCodes.OK,
-      ApiResponseStatuses.SUCCESS,
-      req.t('ONE_TODO_UPDATED_SUCCESSFULLY'),
-      updatedTodo,
-    );
+    return respond(res, StatusCodes.OK, ApiStatuses.SUCCESS, req.t('ONE_TODO_UPDATED_SUCCESSFULLY'), updatedTodo);
   } catch (err) {
     console.error(err);
-    return respond(
-      res,
-      StatusCodes.INTERNAL_SERVER_ERROR,
-      ApiResponseStatuses.ERROR,
-      req.t('FAILED_TO_UPDATE_ONE_TODO'),
-      null,
-    );
+    return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiStatuses.ERROR, req.t('FAILED_TO_UPDATE_ONE_TODO'), null);
   }
 }
 
@@ -128,24 +92,12 @@ async function deleteTodoById(req: Request, res: Response) {
     const deletedTodo: ITodo | null = await Todo.findByIdAndDelete(req.params.id);
 
     if (!deletedTodo) {
-      return respond(res, StatusCodes.NOT_FOUND, ApiResponseStatuses.FAIL, req.t('TODO_NOT_FOUND'), null);
+      return respond(res, StatusCodes.NOT_FOUND, ApiStatuses.FAIL, req.t('TODO_NOT_FOUND'), null);
     }
-    return respond(
-      res,
-      StatusCodes.OK,
-      ApiResponseStatuses.SUCCESS,
-      req.t('ONE_TODO_DELETED_SUCCESSFULLY'),
-      deletedTodo,
-    );
+    return respond(res, StatusCodes.OK, ApiStatuses.SUCCESS, req.t('ONE_TODO_DELETED_SUCCESSFULLY'), deletedTodo);
   } catch (err) {
     console.error(err);
-    return respond(
-      res,
-      StatusCodes.INTERNAL_SERVER_ERROR,
-      ApiResponseStatuses.ERROR,
-      'FAILED_TO_DELETE_ONE_TODO',
-      null,
-    );
+    return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiStatuses.ERROR, 'FAILED_TO_DELETE_ONE_TODO', null);
   }
 }
 

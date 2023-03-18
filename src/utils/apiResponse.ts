@@ -1,11 +1,11 @@
 import { Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import { ApiResponseStatuses, ApiResponse } from '../types/apiResponse';
+import { ApiStatuses, ApiResponse } from '../types/apiResponse';
 
 export default function respond<T>(
   res: Response,
   code: StatusCodes,
-  status: ApiResponseStatuses,
+  status: ApiStatuses,
   message: string,
   data: T | null,
 ) {
