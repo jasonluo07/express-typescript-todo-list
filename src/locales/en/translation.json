@@ -10,8 +10,6 @@
   "FAILED_TO_LOG_IN": "Failed to Log in",
   "FAILED_TO_REGISTER_USER": "Failed to Register User",
   "FAILED_TO_UPDATE_ONE_TODO": "Failed to Update One Todo",
-  "FAILED_TO_VALIDATE_TODO_DATA": "Failed to Validate Todo Data",
-  "FALIED_TO_VALIDATE_USER_DATA": "Failed to Validate User Data",
   "HELLO_WORLD": "Hello, World!",
   "INVALID_EMAIL": "Invalid Email",
   "INVALID_PASSWORD": "Invalid Password",
