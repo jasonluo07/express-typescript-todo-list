@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import Todo, { ITodo } from '../models/todo';
+import { ZodError } from 'zod';
+import Todo, { ITodo, todoSchemaValidator } from '../models/todo';
 import { ApiStatuses } from '../types/apiResponse';
 import respond from '../utils/apiResponse';
 
@@ -19,15 +20,19 @@ async function getAllTodos(req: Request, res: Response) {
 // 建立新的 todo
 async function createNewTodo(req: Request, res: Response) {
   try {
+    const validatedData = todoSchemaValidator.parse(req.body);
     const newTodo: ITodo = new Todo({
-      title: req.body.title,
-      isDone: req.body.isDone,
+      title: validatedData.title,
+      isDone: validatedData.isDone,
     });
     await newTodo.save();
 
     return respond(res, StatusCodes.CREATED, ApiStatuses.SUCCESS, req.t('ONE_TODO_CREATED_SUCCESSFULLY'), newTodo);
   } catch (err) {
     console.error(err);
+    if (err instanceof ZodError) {
+      return respond(res, StatusCodes.BAD_REQUEST, ApiStatuses.FAIL, err.message, null);
+    }
     return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiStatuses.ERROR, req.t('FAILED_TO_CREATE_ONE_TODO'), null);
   }
 }
@@ -67,11 +72,12 @@ async function getTodoById(req: Request, res: Response) {
 // 更新指定的 todo
 async function updateTodoById(req: Request, res: Response) {
   try {
+    const validatedData = todoSchemaValidator.parse(req.body);
     const updatedTodo: ITodo | null = await Todo.findByIdAndUpdate(
       req.params.id,
       {
-        title: req.body.title,
-        isDone: req.body.isDone,
+        title: validatedData.title,
+        isDone: validatedData.isDone,
       },
       { new: true }, // 回傳更新後的資料
     );
@@ -82,6 +88,9 @@ async function updateTodoById(req: Request, res: Response) {
     return respond(res, StatusCodes.OK, ApiStatuses.SUCCESS, req.t('ONE_TODO_UPDATED_SUCCESSFULLY'), updatedTodo);
   } catch (err) {
     console.error(err);
+    if (err instanceof ZodError) {
+      return respond(res, StatusCodes.BAD_REQUEST, ApiStatuses.FAIL, err.message, null);
+    }
     return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiStatuses.ERROR, req.t('FAILED_TO_UPDATE_ONE_TODO'), null);
   }
 }
