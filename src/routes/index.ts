@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import auth from './auth';
-import todos from './todos';
+import authRoutes from './authRoutes';
+import todosRoutes from './todosRoutes';
 import { ApiStatuses } from '../types/apiResponse';
 import respond from '../utils/apiResponse';
 
@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
   return respond(res, StatusCodes.OK, ApiStatuses.SUCCESS, req.t('HELLO_WORLD'), null);
 });
 
-router.use('/api', auth);
-router.use('/api/todos', todos);
+router.use('/api', authRoutes);
+router.use('/api/todos', todosRoutes);
 
 export default router;
