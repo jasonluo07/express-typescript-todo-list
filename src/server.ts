@@ -1,14 +1,11 @@
 import database from './database';
 import app from './app';
 
-const HOST = process.env.HOST ?? 'localhost';
-const PORT = process.env.PORT ?? '3000';
-
 (async () => {
   try {
     await database.connectDB();
-    app.listen(PORT, () => {
-      console.info(`App listening on http://${HOST}:${PORT}`);
+    app.listen(process.env.PORT!, () => {
+      console.info(`App listening on http://${process.env.HOST!}:${process.env.PORT!}`);
     });
   } catch (err) {
     console.error(err);
