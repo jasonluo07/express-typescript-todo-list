@@ -8,7 +8,7 @@ import { ApiStatuses } from '../types/apiResponse';
 import respond from '../utils/apiResponse';
 
 function signToken(userId: string) {
-  return jwt.sign({ userId }, process.env.JWT_SECRET_KEY!, { expiresIn: '1h' });
+  return jwt.sign({ userId }, process.env.JWT_SECRET_KEY!, { expiresIn: '1d' });
 }
 
 async function register(req: Request, res: Response) {
