@@ -1,6 +1,6 @@
 # Project Overview
 
-This project is a Todo List API built using the Express and TypeScript. It allows users to add, view, update and delete tasks on their Todo List. The project is still under development and aims to provide a clean and simple user interface.
+This project is a Todo List API built using the Express and TypeScript. It allows users to add, view, update and delete tasks on their Todo List. The project is still under development and aims to provide a strong, reliable, and scalable backend service.
 
 ## Getting Started
 
@@ -8,7 +8,7 @@ This project is a Todo List API built using the Express and TypeScript. It allow
 
 Before running this project, you must have the following installed:
 
-- Node.js
+- Node.js (v16.19.1 or later)
 
 - Yarn or npm
 
@@ -28,22 +28,20 @@ The application can be accessed by visiting `http://localhost:8080` in your web 
 
 # Technology Stack
 
-- Express
+- Express: A popular web framework for Node.js used to build APIs and web applications.
 
-- TypeScript
+- TypeScript: A superset of JavaScript that adds static typing and other features to improve code quality and maintainability.
 
-- bcrypt
+- MongoDB: A NoSQL document database used to store and manage data.
 
-- dotenv
+- JWT: JSON Web Tokens are used for authentication and authorization purposes. They are commonly used in web applications to securely transmit user data.
 
-- i18next
+- Zod: A TypeScript-first schema validation library that is used to validate and sanitize incoming data.
 
-- jsonwebtoken
+- Jest: A JavaScript testing framework used for unit and integration testing.
 
-- Mongoose
+- i18next: A popular internationalization (i18n) library used to provide multilingual support for web applications.
 
-- Supertest
+- GitHub Actions: A CI/CD platform that automates software development workflows.
 
-- Jest
-
-- Zod
+- AWS EC2: A cloud-based compute service used to run applications and services.
