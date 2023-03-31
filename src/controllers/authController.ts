@@ -7,12 +7,13 @@ import User, { IUser, userSchemaValidator } from '../models/user';
 import { ApiStatuses } from '../types/apiResponse';
 import respond from '../utils/apiResponse';
 
-function signToken(userId: string) {
+function signToken(userId: string): string {
   return jwt.sign({ userId }, process.env.JWT_SECRET_KEY!, { expiresIn: '1d' });
 }
 
 async function register(req: Request, res: Response) {
   try {
+    // 驗證資料
     const validatedData = userSchemaValidator.parse(req.body);
 
     // 檢查是否已存在該電子郵件的使用者
@@ -38,6 +39,8 @@ async function register(req: Request, res: Response) {
     });
   } catch (err) {
     console.error(err);
+
+    // 資料驗證失敗
     if (err instanceof ZodError) {
       return respond(res, StatusCodes.BAD_REQUEST, ApiStatuses.FAIL, err.message, null);
     }
@@ -47,6 +50,7 @@ async function register(req: Request, res: Response) {
 
 async function login(req: Request, res: Response) {
   try {
+    // 驗證資料
     const validatedData = userSchemaValidator.parse(req.body);
 
     // 檢查是否已存在該使用者
@@ -70,6 +74,8 @@ async function login(req: Request, res: Response) {
     });
   } catch (err) {
     console.error(err);
+
+    // 資料驗證失敗
     if (err instanceof ZodError) {
       return respond(res, StatusCodes.BAD_REQUEST, ApiStatuses.FAIL, err.message, null);
     }

@@ -4,7 +4,7 @@ import i18nMiddleware from './middlewares/i18nMiddleware';
 
 import router from './routes';
 
-dotenv.config();
+dotenv.config(); // 載入 .env 檔案
 
 const app = express();
 
