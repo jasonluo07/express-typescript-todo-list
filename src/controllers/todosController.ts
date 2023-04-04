@@ -1,25 +1,23 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import { ZodError } from 'zod';
 import Todo, { ITodo, todoSchemaValidator } from '../models/todo';
 import { ApiStatuses } from '../types/apiResponse';
 import respond from '../utils/apiResponse';
 
 // Get all todos
-async function getAllTodos(req: Request, res: Response) {
+async function getAllTodos(req: Request, res: Response, next: NextFunction) {
   try {
     // {} is the query condition, an empty object means to query all
     const todos: ITodo[] = await Todo.find({});
 
     return respond(res, StatusCodes.OK, ApiStatuses.SUCCESS, req.t('ALL_TODOS_FETCHED_SUCCESSFULLY'), todos);
   } catch (err) {
-    console.error(err);
-    return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiStatuses.ERROR, req.t('FAILED_TO_FETCH_ALL_TODOS'), null);
+    return next(err);
   }
 }
 
 // Create a new todo
-async function createNewTodo(req: Request, res: Response) {
+async function createNewTodo(req: Request, res: Response, next: NextFunction) {
   try {
     // Validate request body with Zod
     const validatedData = todoSchemaValidator.parse(req.body);
@@ -33,36 +31,23 @@ async function createNewTodo(req: Request, res: Response) {
 
     return respond(res, StatusCodes.CREATED, ApiStatuses.SUCCESS, req.t('ONE_TODO_CREATED_SUCCESSFULLY'), newTodo);
   } catch (err) {
-    console.error(err);
-
-    // Failed to validate request body
-    if (err instanceof ZodError) {
-      return respond(res, StatusCodes.BAD_REQUEST, ApiStatuses.FAIL, err.message, null);
-    }
-    return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiStatuses.ERROR, req.t('FAILED_TO_CREATE_ONE_TODO'), null);
+    return next(err);
   }
 }
 
 // Delete all todos
-async function deleteAllTodos(req: Request, res: Response) {
+async function deleteAllTodos(req: Request, res: Response, next: NextFunction) {
   try {
     await Todo.deleteMany({});
 
     return respond(res, StatusCodes.OK, ApiStatuses.SUCCESS, req.t('ALL_TODOS_DELETED_SUCCESSFULLY'), null);
   } catch (err) {
-    console.error(err);
-    return respond(
-      res,
-      StatusCodes.INTERNAL_SERVER_ERROR,
-      ApiStatuses.ERROR,
-      req.t('FAILED_TO_DELETE_ALL_TODOS'),
-      null,
-    );
+    return next(err);
   }
 }
 
 // Get a todo by id
-async function getTodoById(req: Request, res: Response) {
+async function getTodoById(req: Request, res: Response, next: NextFunction) {
   try {
     const todo: ITodo | null = await Todo.findById(req.params.id);
 
@@ -71,13 +56,12 @@ async function getTodoById(req: Request, res: Response) {
     }
     return respond(res, StatusCodes.OK, ApiStatuses.SUCCESS, req.t('ONE_TODO_FETCHED_SUCCESSFULLY'), todo);
   } catch (err) {
-    console.error(err);
-    return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiStatuses.ERROR, req.t('FAILED_TO_FETCH_ONE_TODO'), null);
+    return next(err);
   }
 }
 
 // Update a todo by id
-async function updateTodoById(req: Request, res: Response) {
+async function updateTodoById(req: Request, res: Response, next: NextFunction) {
   try {
     // Validate request body with Zod
     const validatedData = todoSchemaValidator.parse(req.body);
@@ -97,18 +81,12 @@ async function updateTodoById(req: Request, res: Response) {
     }
     return respond(res, StatusCodes.OK, ApiStatuses.SUCCESS, req.t('ONE_TODO_UPDATED_SUCCESSFULLY'), updatedTodo);
   } catch (err) {
-    console.error(err);
-
-    // Failed to validate request body
-    if (err instanceof ZodError) {
-      return respond(res, StatusCodes.BAD_REQUEST, ApiStatuses.FAIL, err.message, null);
-    }
-    return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiStatuses.ERROR, req.t('FAILED_TO_UPDATE_ONE_TODO'), null);
+    return next(err);
   }
 }
 
 // Toggle the isDone field of the specified todo
-async function toggleTodoById(req: Request, res: Response) {
+async function toggleTodoById(req: Request, res: Response, next: NextFunction) {
   try {
     const todo: ITodo | null = await Todo.findById(req.params.id);
 
@@ -122,13 +100,12 @@ async function toggleTodoById(req: Request, res: Response) {
 
     return respond(res, StatusCodes.OK, ApiStatuses.SUCCESS, req.t('ONE_TODO_UPDATED_SUCCESSFULLY'), todo);
   } catch (err) {
-    console.error(err);
-    return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiStatuses.ERROR, req.t('FAILED_TO_UPDATE_ONE_TODO'), null);
+    return next(err);
   }
 }
 
 // Delete a todo by id
-async function deleteTodoById(req: Request, res: Response) {
+async function deleteTodoById(req: Request, res: Response, next: NextFunction) {
   try {
     const deletedTodo: ITodo | null = await Todo.findByIdAndDelete(req.params.id);
 
@@ -137,8 +114,7 @@ async function deleteTodoById(req: Request, res: Response) {
     }
     return respond(res, StatusCodes.OK, ApiStatuses.SUCCESS, req.t('ONE_TODO_DELETED_SUCCESSFULLY'), deletedTodo);
   } catch (err) {
-    console.error(err);
-    return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiStatuses.ERROR, 'FAILED_TO_DELETE_ONE_TODO', null);
+    return next(err);
   }
 }
 

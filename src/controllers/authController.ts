@@ -1,8 +1,7 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import bcrypt from 'bcrypt';
 import { StatusCodes } from 'http-status-codes';
 import jwt from 'jsonwebtoken';
-import { ZodError } from 'zod';
 import User, { IUser, userSchemaValidator } from '../models/user';
 import { ApiStatuses } from '../types/apiResponse';
 import respond from '../utils/apiResponse';
@@ -11,7 +10,7 @@ function signToken(userId: string): string {
   return jwt.sign({ userId }, process.env.JWT_SECRET_KEY!, { expiresIn: '1d' });
 }
 
-async function register(req: Request, res: Response) {
+async function register(req: Request, res: Response, next: NextFunction) {
   try {
     // Validate request body with Zod
     const validatedData = userSchemaValidator.parse(req.body);
@@ -38,17 +37,11 @@ async function register(req: Request, res: Response) {
       user,
     });
   } catch (err) {
-    console.error(err);
-
-    // Failed to validate request body
-    if (err instanceof ZodError) {
-      return respond(res, StatusCodes.BAD_REQUEST, ApiStatuses.FAIL, err.message, null);
-    }
-    return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiStatuses.ERROR, req.t('FAILED_TO_REGISTER_USER'), null);
+    return next(err);
   }
 }
 
-async function login(req: Request, res: Response) {
+async function login(req: Request, res: Response, next: NextFunction) {
   try {
     // Validate request body with Zod
     const validatedData = userSchemaValidator.parse(req.body);
@@ -73,13 +66,7 @@ async function login(req: Request, res: Response) {
       user,
     });
   } catch (err) {
-    console.error(err);
-
-    // Failed to validate request body
-    if (err instanceof ZodError) {
-      return respond(res, StatusCodes.BAD_REQUEST, ApiStatuses.FAIL, err.message, null);
-    }
-    return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiStatuses.ERROR, req.t('FAILED_TO_LOG_IN'), null);
+    return next(err);
   }
 }
 
