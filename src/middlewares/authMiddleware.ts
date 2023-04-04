@@ -16,7 +16,7 @@ interface IDecodedToken {
   userId: string;
 }
 
-export default function authMiddleware(req: Request, res: Response, next: NextFunction) {
+export default function authMiddleware(req: Request, res: Response, next: NextFunction): Response | void {
   try {
     const token = req.headers.authorization?.replace('Bearer ', '');
     if (!token) {

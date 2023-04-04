@@ -4,7 +4,7 @@ import { StatusCodes } from 'http-status-codes';
 import { ApiStatuses } from '../types/apiResponse';
 import respond from '../utils/apiResponse';
 
-function errorHandlingMiddleware(err: unknown, req: Request, res: Response, _next: NextFunction) {
+function errorHandlingMiddleware(err: unknown, req: Request, res: Response, _next: NextFunction): Response {
   // Failed to validate request body
   if (err instanceof ZodError) {
     return respond({

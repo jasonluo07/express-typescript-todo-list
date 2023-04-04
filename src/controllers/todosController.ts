@@ -5,7 +5,7 @@ import { ApiStatuses } from '../types/apiResponse';
 import respond from '../utils/apiResponse';
 
 // Get all todos
-async function getAllTodos(req: Request, res: Response, next: NextFunction) {
+async function getAllTodos(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
   try {
     // {} is the query condition, an empty object means to query all
     const todos: ITodo[] = await Todo.find({});
@@ -23,7 +23,7 @@ async function getAllTodos(req: Request, res: Response, next: NextFunction) {
 }
 
 // Create a new todo
-async function createNewTodo(req: Request, res: Response, next: NextFunction) {
+async function createNewTodo(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
   try {
     // Validate request body with Zod
     const validatedData = todoSchemaValidator.parse(req.body);
@@ -48,7 +48,7 @@ async function createNewTodo(req: Request, res: Response, next: NextFunction) {
 }
 
 // Delete all todos
-async function deleteAllTodos(req: Request, res: Response, next: NextFunction) {
+async function deleteAllTodos(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
   try {
     await Todo.deleteMany({});
 
@@ -65,7 +65,7 @@ async function deleteAllTodos(req: Request, res: Response, next: NextFunction) {
 }
 
 // Get a todo by id
-async function getTodoById(req: Request, res: Response, next: NextFunction) {
+async function getTodoById(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
   try {
     const todo: ITodo | null = await Todo.findById(req.params.id);
 
@@ -91,7 +91,7 @@ async function getTodoById(req: Request, res: Response, next: NextFunction) {
 }
 
 // Update a todo by id
-async function updateTodoById(req: Request, res: Response, next: NextFunction) {
+async function updateTodoById(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
   try {
     // Validate request body with Zod
     const validatedData = todoSchemaValidator.parse(req.body);
@@ -128,7 +128,7 @@ async function updateTodoById(req: Request, res: Response, next: NextFunction) {
 }
 
 // Toggle the isDone field of the specified todo
-async function toggleTodoById(req: Request, res: Response, next: NextFunction) {
+async function toggleTodoById(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
   try {
     const todo: ITodo | null = await Todo.findById(req.params.id);
 
@@ -159,7 +159,7 @@ async function toggleTodoById(req: Request, res: Response, next: NextFunction) {
 }
 
 // Delete a todo by id
-async function deleteTodoById(req: Request, res: Response, next: NextFunction) {
+async function deleteTodoById(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
   try {
     const deletedTodo: ITodo | null = await Todo.findByIdAndDelete(req.params.id);
 

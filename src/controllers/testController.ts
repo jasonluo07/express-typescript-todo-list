@@ -3,7 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import { ApiStatuses } from '../types/apiResponse';
 import respond from '../utils/apiResponse';
 
-function getHello(req: Request, res: Response, next: NextFunction) {
+function getHello(req: Request, res: Response, next: NextFunction): Response | void {
   try {
     return respond({
       res,

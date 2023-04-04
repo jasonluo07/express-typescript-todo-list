@@ -10,7 +10,7 @@ function signToken(userId: string): string {
   return jwt.sign({ userId }, process.env.JWT_SECRET_KEY!, { expiresIn: '1d' });
 }
 
-async function register(req: Request, res: Response, next: NextFunction) {
+async function register(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
   try {
     // Validate request body with Zod
     const validatedData = userSchemaValidator.parse(req.body);
@@ -53,7 +53,7 @@ async function register(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-async function login(req: Request, res: Response, next: NextFunction) {
+async function login(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
   try {
     // Validate request body with Zod
     const validatedData = userSchemaValidator.parse(req.body);

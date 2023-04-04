@@ -1,7 +1,7 @@
 import database from './database';
 import app from './app';
 
-(async function () {
+(async function (): Promise<void> {
   try {
     await database.connectDB();
     app.listen(process.env.PORT!, () => {
