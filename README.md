@@ -30,6 +30,7 @@ The application can be accessed by visiting `http://localhost:8080` in your web 
 
 # Technology Stack
 
+## Core
 - Express: A popular web framework for Node.js used to build APIs and web applications.
 
 - TypeScript: A superset of JavaScript that adds static typing and other features to improve code quality and maintainability.
@@ -49,6 +50,26 @@ The application can be accessed by visiting `http://localhost:8080` in your web 
 - GitHub Actions: A CI/CD platform that automates software development workflows.
 
 - AWS EC2: A cloud-based compute service used to run applications and services.
+
+## Tools
+
+- ESLint: A static code analysis tool that helps identify problematic patterns in your JavaScript and TypeScript code, ensuring a consistent code style across the project.
+
+- Airbnb JavaScript Style Guide: Airbnb JavaScript Style Guide: A widely adopted style guide for JavaScript that promotes best practices and clean, readable code. This project follows the Airbnb style guide through the ESLint configuration.
+
+- Prettier: An opinionated code formatter that helps maintain a consistent code style by automatically formatting your code upon saving.
+
+- CSpell(Code Spell Checker): A spell checker for code that helps identify and fix typos in your codebase.
+
+## Commit Message Guidelines
+
+This project follows the [Angular Commit Guidelines](https://github.com/angular/angular/blob/main/CONTRIBUTING.md#-commit-message-guidelines) for commit messages. By adhering to these guidelines, we can generate a clear and readable git history, as well as automate the generation of changelogs.
+
+## Coming Soon
+
+- Husky and lint-staged integration: Automatically enforce code style and formatting rules before each Git commit, ensuring a consistent codebase and reducing code review overhead.
+
+- API Docs
 
 # Project Structure
 
