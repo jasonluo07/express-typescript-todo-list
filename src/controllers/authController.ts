@@ -13,16 +13,16 @@ function signToken(userId: string): string {
 
 async function register(req: Request, res: Response) {
   try {
-    // 驗證資料
+    // Validate request body with Zod
     const validatedData = userSchemaValidator.parse(req.body);
 
-    // 檢查是否已存在該電子郵件的使用者
+    // Check if user with the same email already exists
     const existingUser = await User.findOne({ email: validatedData.email });
     if (existingUser) {
       return respond(res, StatusCodes.BAD_REQUEST, ApiStatuses.FAIL, req.t('EMAIL_ALREADY_REGISTERED'), null);
     }
 
-    // 建立新的使用者
+    // Create a new user
     const hashedPassword = await bcrypt.hash(validatedData.password, 12);
     const user: IUser = new User({
       email: validatedData.email,
@@ -30,7 +30,7 @@ async function register(req: Request, res: Response) {
     });
     await user.save();
 
-    // 簽發 token
+    // Sign token
     const token = signToken(user.id);
 
     return respond(res, StatusCodes.CREATED, ApiStatuses.SUCCESS, req.t('USER_REGISTERED_SUCCESSFULLY'), {
@@ -40,7 +40,7 @@ async function register(req: Request, res: Response) {
   } catch (err) {
     console.error(err);
 
-    // 資料驗證失敗
+    // Failed to validate request body
     if (err instanceof ZodError) {
       return respond(res, StatusCodes.BAD_REQUEST, ApiStatuses.FAIL, err.message, null);
     }
@@ -50,22 +50,22 @@ async function register(req: Request, res: Response) {
 
 async function login(req: Request, res: Response) {
   try {
-    // 驗證資料
+    // Validate request body with Zod
     const validatedData = userSchemaValidator.parse(req.body);
 
-    // 檢查是否已存在該使用者
+    // Check if user with the same email already exists
     const user: IUser | null = await User.findOne({ email: validatedData.email });
     if (!user) {
       return respond(res, StatusCodes.UNAUTHORIZED, ApiStatuses.FAIL, req.t('INVALID_EMAIL'), null);
     }
 
-    // 檢查是否密碼正確
+    // Check if password is correct
     const isPasswordValid = await bcrypt.compare(validatedData.password, user.password);
     if (!isPasswordValid) {
       return respond(res, StatusCodes.UNAUTHORIZED, ApiStatuses.FAIL, req.t('INVALID_PASSWORD'), null);
     }
 
-    // 簽發 token
+    // Sign token
     const token = signToken(user.id);
 
     return respond(res, StatusCodes.OK, ApiStatuses.SUCCESS, req.t('USER_LOGGED_IN_SUCCESSFULLY'), {
@@ -75,7 +75,7 @@ async function login(req: Request, res: Response) {
   } catch (err) {
     console.error(err);
 
-    // 資料驗證失敗
+    // Failed to validate request body
     if (err instanceof ZodError) {
       return respond(res, StatusCodes.BAD_REQUEST, ApiStatuses.FAIL, err.message, null);
     }

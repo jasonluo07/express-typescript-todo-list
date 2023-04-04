@@ -13,7 +13,7 @@ const TodoSchema = new Schema(
       default: false,
     },
   },
-  { versionKey: false }, // 禁用自動添加 versionKey
+  { versionKey: false }, // Don't add __v field
 );
 
 export interface ITodo extends Document {

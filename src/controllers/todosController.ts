@@ -5,10 +5,10 @@ import Todo, { ITodo, todoSchemaValidator } from '../models/todo';
 import { ApiStatuses } from '../types/apiResponse';
 import respond from '../utils/apiResponse';
 
-// 取得所有 todos
+// Get all todos
 async function getAllTodos(req: Request, res: Response) {
   try {
-    // {} 為查詢條件，空物件代表查詢所有
+    // {} is the query condition, an empty object means to query all
     const todos: ITodo[] = await Todo.find({});
 
     return respond(res, StatusCodes.OK, ApiStatuses.SUCCESS, req.t('ALL_TODOS_FETCHED_SUCCESSFULLY'), todos);
@@ -18,13 +18,13 @@ async function getAllTodos(req: Request, res: Response) {
   }
 }
 
-// 建立新的 todo
+// Create a new todo
 async function createNewTodo(req: Request, res: Response) {
   try {
-    // 驗證資料
+    // Validate request body with Zod
     const validatedData = todoSchemaValidator.parse(req.body);
 
-    // 建立新的 todo
+    // Create a new todo
     const newTodo: ITodo = new Todo({
       title: validatedData.title,
       isDone: validatedData.isDone,
@@ -35,7 +35,7 @@ async function createNewTodo(req: Request, res: Response) {
   } catch (err) {
     console.error(err);
 
-    // 資料驗證失敗
+    // Failed to validate request body
     if (err instanceof ZodError) {
       return respond(res, StatusCodes.BAD_REQUEST, ApiStatuses.FAIL, err.message, null);
     }
@@ -43,7 +43,7 @@ async function createNewTodo(req: Request, res: Response) {
   }
 }
 
-// 刪除所有 todos
+// Delete all todos
 async function deleteAllTodos(req: Request, res: Response) {
   try {
     await Todo.deleteMany({});
@@ -61,7 +61,7 @@ async function deleteAllTodos(req: Request, res: Response) {
   }
 }
 
-// 取得指定的 todo
+// Get a todo by id
 async function getTodoById(req: Request, res: Response) {
   try {
     const todo: ITodo | null = await Todo.findById(req.params.id);
@@ -76,20 +76,20 @@ async function getTodoById(req: Request, res: Response) {
   }
 }
 
-// 更新指定的 todo
+// Update a todo by id
 async function updateTodoById(req: Request, res: Response) {
   try {
-    // 驗證資料
+    // Validate request body with Zod
     const validatedData = todoSchemaValidator.parse(req.body);
 
-    // 更新指定的 todo
+    // Update a todo
     const updatedTodo: ITodo | null = await Todo.findByIdAndUpdate(
       req.params.id,
       {
         title: validatedData.title,
         isDone: validatedData.isDone,
       },
-      { new: true }, // 回傳更新後的資料
+      { new: true }, // Return the updated document instead of the original document
     );
 
     if (!updatedTodo) {
@@ -99,7 +99,7 @@ async function updateTodoById(req: Request, res: Response) {
   } catch (err) {
     console.error(err);
 
-    // 資料驗證失敗
+    // Failed to validate request body
     if (err instanceof ZodError) {
       return respond(res, StatusCodes.BAD_REQUEST, ApiStatuses.FAIL, err.message, null);
     }
@@ -107,7 +107,7 @@ async function updateTodoById(req: Request, res: Response) {
   }
 }
 
-// 開關指定的 todo 的 isDone 欄位
+// Toggle the isDone field of the specified todo
 async function toggleTodoById(req: Request, res: Response) {
   try {
     const todo: ITodo | null = await Todo.findById(req.params.id);
@@ -116,7 +116,7 @@ async function toggleTodoById(req: Request, res: Response) {
       return respond(res, StatusCodes.NOT_FOUND, ApiStatuses.FAIL, req.t('TODO_NOT_FOUND'), null);
     }
 
-    // 開關 isDone
+    // Toggle the isDone field
     todo.isDone = !todo.isDone;
     await todo.save();
 
@@ -127,12 +127,11 @@ async function toggleTodoById(req: Request, res: Response) {
   }
 }
 
-// 刪除指定的 todo
+// Delete a todo by id
 async function deleteTodoById(req: Request, res: Response) {
   try {
     const deletedTodo: ITodo | null = await Todo.findByIdAndDelete(req.params.id);
 
-    // 指定的 todo 不存在
     if (!deletedTodo) {
       return respond(res, StatusCodes.NOT_FOUND, ApiStatuses.FAIL, req.t('TODO_NOT_FOUND'), null);
     }

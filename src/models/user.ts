@@ -13,7 +13,7 @@ const UserSchema = new Schema(
       required: true,
     },
   },
-  { timestamps: true }, // 自動加入 createdAt 和 updatedAt 欄位
+  { timestamps: true }, // Add createdAt and updatedAt fields
 );
 
 export interface IUser extends Document {

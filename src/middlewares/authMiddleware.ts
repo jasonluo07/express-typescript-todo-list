@@ -23,10 +23,10 @@ export default function authMiddleware(req: Request, res: Response, next: NextFu
       return respond(res, StatusCodes.UNAUTHORIZED, ApiStatuses.FAIL, req.t('NO_TOKEN_PROVIDED'), null);
     }
 
-    // 驗證 token
+    // Verify token
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY!) as IDecodedToken;
 
-    // 將 userId 存入 req.user
+    // Store userId in req.user, so we can use req.user.id in the following controllers
     req.user = { id: decodedToken.userId };
 
     return next();

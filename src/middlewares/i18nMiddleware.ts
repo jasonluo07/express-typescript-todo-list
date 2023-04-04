@@ -4,20 +4,22 @@ import FsBackend, { FsBackendOptions } from 'i18next-fs-backend';
 import i18next from 'i18next';
 
 i18next
-  .use(LanguageDetector) // 設定語言偵測器
-  .use(FsBackend) // 設定後端資料來源
+  .use(LanguageDetector) // Set language detector
+  .use(FsBackend) // Set backend data source
   .init<FsBackendOptions>({
-    // 預設語言為英語
+    // Default language is English
     lng: 'en',
-    // 如果選擇的語言不存在，則退回到英語
+    // If the selected language does not exist, return to English
     fallbackLng: 'en',
-    // 預先載入的語言檔
+    // Preloaded language files
     preload: ['en', 'zh-TW'],
+    // Namespace
     ns: 'translation',
+    // Default namespace
     defaultNS: 'translation',
-    // 後端資料來源
+    // Backend data source
     backend: {
-      // 語言檔案的路徑
+      // Path of language files
       loadPath: join(__dirname, '../locales/{{lng}}/{{ns}}.json'),
     },
   });
