@@ -50,6 +50,7 @@ async function createNewTodo(req: Request, res: Response, next: NextFunction): P
 // Delete all todos
 async function deleteAllTodos(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
   try {
+    // {} is the query condition, an empty object means to delete all
     await Todo.deleteMany({});
 
     return respond({
