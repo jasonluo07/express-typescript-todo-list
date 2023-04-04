@@ -5,7 +5,13 @@ import respond from '../utils/apiResponse';
 
 function getHello(req: Request, res: Response, next: NextFunction) {
   try {
-    return respond(res, StatusCodes.OK, ApiStatuses.SUCCESS, req.t('HELLO_WORLD'), null);
+    return respond({
+      res,
+      code: StatusCodes.OK,
+      status: ApiStatuses.SUCCESS,
+      message: req.t('HELLO_WORLD'),
+      data: null,
+    });
   } catch (err) {
     return next(err);
   }

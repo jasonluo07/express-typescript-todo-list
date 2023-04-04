@@ -10,7 +10,13 @@ async function getAllTodos(req: Request, res: Response, next: NextFunction) {
     // {} is the query condition, an empty object means to query all
     const todos: ITodo[] = await Todo.find({});
 
-    return respond(res, StatusCodes.OK, ApiStatuses.SUCCESS, req.t('ALL_TODOS_FETCHED_SUCCESSFULLY'), todos);
+    return respond({
+      res,
+      code: StatusCodes.OK,
+      status: ApiStatuses.SUCCESS,
+      message: req.t('ALL_TODOS_FETCHED_SUCCESSFULLY'),
+      data: todos,
+    });
   } catch (err) {
     return next(err);
   }
@@ -29,7 +35,13 @@ async function createNewTodo(req: Request, res: Response, next: NextFunction) {
     });
     await newTodo.save();
 
-    return respond(res, StatusCodes.CREATED, ApiStatuses.SUCCESS, req.t('ONE_TODO_CREATED_SUCCESSFULLY'), newTodo);
+    return respond({
+      res,
+      code: StatusCodes.CREATED,
+      status: ApiStatuses.SUCCESS,
+      message: req.t('ONE_TODO_CREATED_SUCCESSFULLY'),
+      data: newTodo,
+    });
   } catch (err) {
     return next(err);
   }
@@ -40,7 +52,13 @@ async function deleteAllTodos(req: Request, res: Response, next: NextFunction) {
   try {
     await Todo.deleteMany({});
 
-    return respond(res, StatusCodes.OK, ApiStatuses.SUCCESS, req.t('ALL_TODOS_DELETED_SUCCESSFULLY'), null);
+    return respond({
+      res,
+      code: StatusCodes.OK,
+      status: ApiStatuses.SUCCESS,
+      message: req.t('ALL_TODOS_DELETED_SUCCESSFULLY'),
+      data: null,
+    });
   } catch (err) {
     return next(err);
   }
@@ -52,9 +70,21 @@ async function getTodoById(req: Request, res: Response, next: NextFunction) {
     const todo: ITodo | null = await Todo.findById(req.params.id);
 
     if (!todo) {
-      return respond(res, StatusCodes.NOT_FOUND, ApiStatuses.FAIL, req.t('TODO_NOT_FOUND'), null);
+      return respond({
+        res,
+        code: StatusCodes.NOT_FOUND,
+        status: ApiStatuses.FAIL,
+        message: req.t('TODO_NOT_FOUND'),
+        data: null,
+      });
     }
-    return respond(res, StatusCodes.OK, ApiStatuses.SUCCESS, req.t('ONE_TODO_FETCHED_SUCCESSFULLY'), todo);
+    return respond({
+      res,
+      code: StatusCodes.OK,
+      status: ApiStatuses.SUCCESS,
+      message: req.t('ONE_TODO_FETCHED_SUCCESSFULLY'),
+      data: todo,
+    });
   } catch (err) {
     return next(err);
   }
@@ -77,9 +107,21 @@ async function updateTodoById(req: Request, res: Response, next: NextFunction) {
     );
 
     if (!updatedTodo) {
-      return respond(res, StatusCodes.NOT_FOUND, ApiStatuses.FAIL, req.t('TODO_NOT_FOUND'), null);
+      return respond({
+        res,
+        code: StatusCodes.NOT_FOUND,
+        status: ApiStatuses.FAIL,
+        message: req.t('TODO_NOT_FOUND'),
+        data: null,
+      });
     }
-    return respond(res, StatusCodes.OK, ApiStatuses.SUCCESS, req.t('ONE_TODO_UPDATED_SUCCESSFULLY'), updatedTodo);
+    return respond({
+      res,
+      code: StatusCodes.OK,
+      status: ApiStatuses.SUCCESS,
+      message: req.t('ONE_TODO_UPDATED_SUCCESSFULLY'),
+      data: updatedTodo,
+    });
   } catch (err) {
     return next(err);
   }
@@ -91,14 +133,26 @@ async function toggleTodoById(req: Request, res: Response, next: NextFunction) {
     const todo: ITodo | null = await Todo.findById(req.params.id);
 
     if (!todo) {
-      return respond(res, StatusCodes.NOT_FOUND, ApiStatuses.FAIL, req.t('TODO_NOT_FOUND'), null);
+      return respond({
+        res,
+        code: StatusCodes.NOT_FOUND,
+        status: ApiStatuses.FAIL,
+        message: req.t('TODO_NOT_FOUND'),
+        data: null,
+      });
     }
 
     // Toggle the isDone field
     todo.isDone = !todo.isDone;
     await todo.save();
 
-    return respond(res, StatusCodes.OK, ApiStatuses.SUCCESS, req.t('ONE_TODO_UPDATED_SUCCESSFULLY'), todo);
+    return respond({
+      res,
+      code: StatusCodes.OK,
+      status: ApiStatuses.SUCCESS,
+      message: req.t('ONE_TODO_UPDATED_SUCCESSFULLY'),
+      data: todo,
+    });
   } catch (err) {
     return next(err);
   }
@@ -110,9 +164,21 @@ async function deleteTodoById(req: Request, res: Response, next: NextFunction) {
     const deletedTodo: ITodo | null = await Todo.findByIdAndDelete(req.params.id);
 
     if (!deletedTodo) {
-      return respond(res, StatusCodes.NOT_FOUND, ApiStatuses.FAIL, req.t('TODO_NOT_FOUND'), null);
+      return respond({
+        res,
+        code: StatusCodes.NOT_FOUND,
+        status: ApiStatuses.FAIL,
+        message: req.t('TODO_NOT_FOUND'),
+        data: null,
+      });
     }
-    return respond(res, StatusCodes.OK, ApiStatuses.SUCCESS, req.t('ONE_TODO_DELETED_SUCCESSFULLY'), deletedTodo);
+    return respond({
+      res,
+      code: StatusCodes.OK,
+      status: ApiStatuses.SUCCESS,
+      message: req.t('ONE_TODO_DELETED_SUCCESSFULLY'),
+      data: deletedTodo,
+    });
   } catch (err) {
     return next(err);
   }

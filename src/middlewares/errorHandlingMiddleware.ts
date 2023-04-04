@@ -7,11 +7,23 @@ import respond from '../utils/apiResponse';
 function errorHandlingMiddleware(err: unknown, req: Request, res: Response, _next: NextFunction) {
   // Failed to validate request body
   if (err instanceof ZodError) {
-    return respond(res, StatusCodes.BAD_REQUEST, ApiStatuses.ERROR, err.errors[0].message, null);
+    return respond({
+      res,
+      code: StatusCodes.BAD_REQUEST,
+      status: ApiStatuses.ERROR,
+      message: err.errors[0].message,
+      data: null,
+    });
   }
 
   // Handle other unknown errors
-  return respond(res, StatusCodes.INTERNAL_SERVER_ERROR, ApiStatuses.ERROR, req.t('INTERNAL_SERVER_ERROR'), null);
+  return respond({
+    res,
+    code: StatusCodes.INTERNAL_SERVER_ERROR,
+    status: ApiStatuses.ERROR,
+    message: req.t('INTERNAL_SERVER_ERROR'),
+    data: null,
+  });
 }
 
 export default errorHandlingMiddleware;

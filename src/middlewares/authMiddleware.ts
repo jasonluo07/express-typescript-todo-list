@@ -20,7 +20,13 @@ export default function authMiddleware(req: Request, res: Response, next: NextFu
   try {
     const token = req.headers.authorization?.replace('Bearer ', '');
     if (!token) {
-      return respond(res, StatusCodes.UNAUTHORIZED, ApiStatuses.FAIL, req.t('NO_TOKEN_PROVIDED'), null);
+      return respond({
+        res,
+        code: StatusCodes.UNAUTHORIZED,
+        status: ApiStatuses.FAIL,
+        message: req.t('NO_TOKEN_PROVIDED'),
+        data: null,
+      });
     }
 
     // Verify token
@@ -32,6 +38,12 @@ export default function authMiddleware(req: Request, res: Response, next: NextFu
     return next();
   } catch (err) {
     console.error(err);
-    return respond(res, StatusCodes.UNAUTHORIZED, ApiStatuses.FAIL, req.t('INVALID_TOKEN'), null);
+    return respond({
+      res,
+      code: StatusCodes.UNAUTHORIZED,
+      status: ApiStatuses.FAIL,
+      message: req.t('INVALID_TOKEN'),
+      data: null,
+    });
   }
 }
