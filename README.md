@@ -10,7 +10,7 @@ Before running this project, you must have the following installed:
 
 - Node.js (**v16.20.0** or later)
 
-- Yarn or npm
+- Yarn
 
 - MongoDB
 
@@ -18,11 +18,11 @@ Before running this project, you must have the following installed:
 
 1. Clone this repository to your local machine.
 
-2. Run `yarn` or `npm install` in the project directory to install all required dependencies.
+2. Run `yarn` in the project directory to install all required dependencies.
 
 3. Create a `.env` file at the root directory of the project and add the necessary environment variables. See the `.env.example` file for reference.
 
-4. Run `yarn start` or `npm start` to start the application.
+4. Run `yarn start` or `yarn dev` to start the application.
 
 ## Usage
 
