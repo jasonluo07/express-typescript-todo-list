@@ -13,7 +13,7 @@ RUN yarn install
 # Copy the rest of your app's source code from your host to your image filesystem.
 COPY . .
 
-# Specify the port number the container should expost
+# Specify the port number the container should expose
 EXPOSE 8080
 
 # Start the app

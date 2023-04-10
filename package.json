@@ -1,16 +1,25 @@
 {
   "name": "express-typescript-todo-list",
+  "description": "A simple todo list API using Express and TypeScript",
   "version": "1.0.0",
+  "author": "Jason Luo",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jasonluo07/express-typescript-todo-list.git"
+  },
+  "homepage": "https://github.com/jasonluo07/express-typescript-todo-list",
   "main": "src/server.ts",
+  "license": "MIT",
   "scripts": {
     "start": "ts-node src/server.ts",
     "dev": "nodemon src/server.ts",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
-    "cpell": "cspell \"**/*.{ts,md}\"",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "cspell": "cspell .",
     "test": "jest"
   },
-  "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
@@ -22,7 +31,6 @@
     "i18next-http-middleware": "^3.3.0",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.1",
-    "supertest": "^6.3.3",
     "zod": "^3.21.4"
   },
   "devDependencies": {
@@ -45,11 +53,9 @@
     "jest": "^29.5.0",
     "nodemon": "^2.0.20",
     "prettier": "^2.8.4",
+    "supertest": "^6.3.3",
     "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.5"
-  },
-  "engines": {
-    "node": ">=16.20.0"
   }
 }
