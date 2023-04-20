@@ -2,7 +2,7 @@ import mongoose, { Schema } from 'mongoose';
 import { boolean, object, string } from 'zod';
 import { ITodo } from '../types';
 
-const TodoSchema = new Schema(
+const todoSchema = new Schema(
   {
     title: {
       type: String,
@@ -14,7 +14,7 @@ const TodoSchema = new Schema(
       default: false,
     },
   },
-  { versionKey: false }, // Don't add __v field
+  { timestamps: true }, // Add createdAt and updatedAt fields
 );
 
 export const todoSchemaValidator = object({
@@ -22,4 +22,4 @@ export const todoSchemaValidator = object({
   isDone: boolean(),
 });
 
-export default mongoose.model<ITodo>('Todo', TodoSchema);
+export default mongoose.model<ITodo>('Todo', todoSchema);

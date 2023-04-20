@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-async function connectDB(): Promise<void> {
+async function connect(): Promise<void> {
   try {
     await mongoose.connect(process.env.MONGODB_URI!);
     console.info('MongoDB connected');
@@ -10,7 +10,7 @@ async function connectDB(): Promise<void> {
   }
 }
 
-async function disconnectDB(): Promise<void> {
+async function disconnect(): Promise<void> {
   try {
     await mongoose.disconnect();
     console.info('MongoDB disconnected');
@@ -20,4 +20,4 @@ async function disconnectDB(): Promise<void> {
   }
 }
 
-export default { connectDB, disconnectDB };
+export default { connect, disconnect };

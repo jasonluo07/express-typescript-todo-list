@@ -3,7 +3,7 @@ import app from './app';
 
 (async function (): Promise<void> {
   try {
-    await database.connectDB();
+    await database.connect();
     app.listen(process.env.PORT!, () => {
       console.info(`App listening on http://${process.env.HOST!}:${process.env.PORT!}`);
     });

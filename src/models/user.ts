@@ -2,7 +2,7 @@ import mongoose, { Schema } from 'mongoose';
 import { object, string } from 'zod';
 import { IUser } from '../types';
 
-const UserSchema = new Schema(
+const userSchema = new Schema(
   {
     email: {
       type: String,
@@ -22,4 +22,4 @@ export const userSchemaValidator = object({
   password: string().min(8).max(20),
 });
 
-export default mongoose.model<IUser>('User', UserSchema);
+export default mongoose.model<IUser>('User', userSchema);
