@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import { i18nMiddleware, errorMiddleware } from './middlewares';
-import corsOptions from './config/corsOptions';
+import corsOptions from './configs/corsOptions';
 
 import router from './routes';
 
