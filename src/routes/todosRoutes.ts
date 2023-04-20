@@ -1,10 +1,7 @@
 import { Router } from 'express';
 import todosController from '../controllers/todosController';
-// import authMiddleware from '../middlewares/authMiddleware';
 
 const router = Router();
-
-// router.use(authMiddleware); // TODO: temporarily disabled
 
 router.get('', todosController.getAllTodos);
 router.post('', todosController.createNewTodo);

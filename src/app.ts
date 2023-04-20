@@ -1,8 +1,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
-import i18nMiddleware from './middlewares/i18nMiddleware';
-import errorHandleingMiddleware from './middlewares/errorHandlingMiddleware';
+import { i18nMiddleware, errorMiddleware } from './middlewares';
 import corsOptions from './config/corsOptions';
 
 import router from './routes';
@@ -16,6 +15,6 @@ app.use(express.json()); // Parse JSON body
 app.use(cors(corsOptions));
 app.use(i18nMiddleware); // Set i18n middleware
 app.use(router); // Set router
-app.use(errorHandleingMiddleware); // Set error handling middleware
+app.use(errorMiddleware); // Set error handling middleware
 
 export default app;

@@ -3,7 +3,7 @@ import { ZodError } from 'zod';
 import { ApiStatus, StatusCode } from '../types';
 import respond from '../utils';
 
-function errorHandlingMiddleware(err: unknown, req: Request, res: Response, _next: NextFunction): Response {
+function errorMiddleware(err: unknown, req: Request, res: Response, _next: NextFunction): Response {
   // Failed to validate request body
   if (err instanceof ZodError) {
     return respond({
@@ -25,4 +25,4 @@ function errorHandlingMiddleware(err: unknown, req: Request, res: Response, _nex
   });
 }
 
-export default errorHandlingMiddleware;
+export default errorMiddleware;
