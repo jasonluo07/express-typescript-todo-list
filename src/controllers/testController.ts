@@ -1,14 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
-import { StatusCodes } from 'http-status-codes';
-import { ApiStatuses } from '../types/apiResponse';
-import respond from '../utils/apiResponse';
+import { ApiStatus, StatusCode } from '../types';
+import respond from '../utils';
 
 function getHello(req: Request, res: Response, next: NextFunction): Response | void {
   try {
     return respond({
       res,
-      code: StatusCodes.OK,
-      status: ApiStatuses.SUCCESS,
+      code: StatusCode.OK,
+      status: ApiStatus.SUCCESS,
       message: req.t('HELLO_WORLD'),
       data: null,
     });

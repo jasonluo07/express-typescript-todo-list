@@ -1,5 +1,6 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 import { object, string } from 'zod';
+import { IUser } from '../types';
 
 const UserSchema = new Schema(
   {
@@ -15,13 +16,6 @@ const UserSchema = new Schema(
   },
   { timestamps: true }, // Add createdAt and updatedAt fields
 );
-
-export interface IUser extends Document {
-  email: string;
-  password: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
 
 export const userSchemaValidator = object({
   email: string().email(),

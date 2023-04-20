@@ -1,10 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import bcrypt from 'bcrypt';
-import { StatusCodes } from 'http-status-codes';
 import jwt from 'jsonwebtoken';
-import User, { IUser, userSchemaValidator } from '../models/user';
-import { ApiStatuses } from '../types/apiResponse';
-import respond from '../utils/apiResponse';
+import User, { userSchemaValidator } from '../models/user';
+import { ApiStatus, StatusCode, IUser } from '../types';
+import respond from '../utils';
 
 function signToken(userId: string): string {
   return jwt.sign({ userId }, process.env.JWT_SECRET_KEY!, { expiresIn: '1m' });
@@ -20,8 +19,8 @@ async function register(req: Request, res: Response, next: NextFunction): Promis
     if (existingUser) {
       return respond({
         res,
-        code: StatusCodes.BAD_REQUEST,
-        status: ApiStatuses.FAIL,
+        code: StatusCode.BAD_REQUEST,
+        status: ApiStatus.FAIL,
         message: req.t('EMAIL_ALREADY_REGISTERED'),
         data: null,
       });
@@ -40,8 +39,8 @@ async function register(req: Request, res: Response, next: NextFunction): Promis
 
     return respond({
       res,
-      code: StatusCodes.CREATED,
-      status: ApiStatuses.SUCCESS,
+      code: StatusCode.CREATED,
+      status: ApiStatus.SUCCESS,
       message: req.t('USER_REGISTERED_SUCCESSFULLY'),
       data: {
         token,
@@ -63,8 +62,8 @@ async function login(req: Request, res: Response, next: NextFunction): Promise<R
     if (!user) {
       return respond({
         res,
-        code: StatusCodes.UNAUTHORIZED,
-        status: ApiStatuses.FAIL,
+        code: StatusCode.UNAUTHORIZED,
+        status: ApiStatus.FAIL,
         message: req.t('INVALID_EMAIL'),
         data: null,
       });
@@ -75,8 +74,8 @@ async function login(req: Request, res: Response, next: NextFunction): Promise<R
     if (!isPasswordValid) {
       return respond({
         res,
-        code: StatusCodes.UNAUTHORIZED,
-        status: ApiStatuses.FAIL,
+        code: StatusCode.UNAUTHORIZED,
+        status: ApiStatus.FAIL,
         message: req.t('INVALID_PASSWORD'),
         data: null,
       });
@@ -87,8 +86,8 @@ async function login(req: Request, res: Response, next: NextFunction): Promise<R
 
     return respond({
       res,
-      code: StatusCodes.OK,
-      status: ApiStatuses.SUCCESS,
+      code: StatusCode.OK,
+      status: ApiStatus.SUCCESS,
       message: req.t('USER_LOGGED_IN_SUCCESSFULLY'),
       data: {
         token,

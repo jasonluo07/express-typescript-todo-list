@@ -1,8 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import { StatusCodes } from 'http-status-codes';
-import Todo, { ITodo, todoSchemaValidator } from '../models/todo';
-import { ApiStatuses } from '../types/apiResponse';
-import respond from '../utils/apiResponse';
+import Todo, { todoSchemaValidator } from '../models/todo';
+import { ApiStatus, ITodo, StatusCode } from '../types';
+import respond from '../utils';
 
 // Get all todos
 async function getAllTodos(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -12,8 +11,8 @@ async function getAllTodos(req: Request, res: Response, next: NextFunction): Pro
 
     return respond({
       res,
-      code: StatusCodes.OK,
-      status: ApiStatuses.SUCCESS,
+      code: StatusCode.OK,
+      status: ApiStatus.SUCCESS,
       message: req.t('ALL_TODOS_FETCHED_SUCCESSFULLY'),
       data: todos,
     });
@@ -37,8 +36,8 @@ async function createNewTodo(req: Request, res: Response, next: NextFunction): P
 
     return respond({
       res,
-      code: StatusCodes.CREATED,
-      status: ApiStatuses.SUCCESS,
+      code: StatusCode.CREATED,
+      status: ApiStatus.SUCCESS,
       message: req.t('ONE_TODO_CREATED_SUCCESSFULLY'),
       data: newTodo,
     });
@@ -55,8 +54,8 @@ async function deleteAllTodos(req: Request, res: Response, next: NextFunction): 
 
     return respond({
       res,
-      code: StatusCodes.OK,
-      status: ApiStatuses.SUCCESS,
+      code: StatusCode.OK,
+      status: ApiStatus.SUCCESS,
       message: req.t('ALL_TODOS_DELETED_SUCCESSFULLY'),
       data: null,
     });
@@ -73,16 +72,16 @@ async function getTodoById(req: Request, res: Response, next: NextFunction): Pro
     if (!todo) {
       return respond({
         res,
-        code: StatusCodes.NOT_FOUND,
-        status: ApiStatuses.FAIL,
+        code: StatusCode.NOT_FOUND,
+        status: ApiStatus.FAIL,
         message: req.t('TODO_NOT_FOUND'),
         data: null,
       });
     }
     return respond({
       res,
-      code: StatusCodes.OK,
-      status: ApiStatuses.SUCCESS,
+      code: StatusCode.OK,
+      status: ApiStatus.SUCCESS,
       message: req.t('ONE_TODO_FETCHED_SUCCESSFULLY'),
       data: todo,
     });
@@ -110,16 +109,16 @@ async function updateTodoById(req: Request, res: Response, next: NextFunction): 
     if (!updatedTodo) {
       return respond({
         res,
-        code: StatusCodes.NOT_FOUND,
-        status: ApiStatuses.FAIL,
+        code: StatusCode.NOT_FOUND,
+        status: ApiStatus.FAIL,
         message: req.t('TODO_NOT_FOUND'),
         data: null,
       });
     }
     return respond({
       res,
-      code: StatusCodes.OK,
-      status: ApiStatuses.SUCCESS,
+      code: StatusCode.OK,
+      status: ApiStatus.SUCCESS,
       message: req.t('ONE_TODO_UPDATED_SUCCESSFULLY'),
       data: updatedTodo,
     });
@@ -136,8 +135,8 @@ async function toggleTodoById(req: Request, res: Response, next: NextFunction): 
     if (!todo) {
       return respond({
         res,
-        code: StatusCodes.NOT_FOUND,
-        status: ApiStatuses.FAIL,
+        code: StatusCode.NOT_FOUND,
+        status: ApiStatus.FAIL,
         message: req.t('TODO_NOT_FOUND'),
         data: null,
       });
@@ -149,8 +148,8 @@ async function toggleTodoById(req: Request, res: Response, next: NextFunction): 
 
     return respond({
       res,
-      code: StatusCodes.OK,
-      status: ApiStatuses.SUCCESS,
+      code: StatusCode.OK,
+      status: ApiStatus.SUCCESS,
       message: req.t('ONE_TODO_UPDATED_SUCCESSFULLY'),
       data: todo,
     });
@@ -167,16 +166,16 @@ async function deleteTodoById(req: Request, res: Response, next: NextFunction): 
     if (!deletedTodo) {
       return respond({
         res,
-        code: StatusCodes.NOT_FOUND,
-        status: ApiStatuses.FAIL,
+        code: StatusCode.NOT_FOUND,
+        status: ApiStatus.FAIL,
         message: req.t('TODO_NOT_FOUND'),
         data: null,
       });
     }
     return respond({
       res,
-      code: StatusCodes.OK,
-      status: ApiStatuses.SUCCESS,
+      code: StatusCode.OK,
+      status: ApiStatus.SUCCESS,
       message: req.t('ONE_TODO_DELETED_SUCCESSFULLY'),
       data: deletedTodo,
     });

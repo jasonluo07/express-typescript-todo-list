@@ -1,11 +1,11 @@
 import { Response } from 'express';
-import { StatusCodes } from 'http-status-codes';
-import { ApiStatuses, ApiResponse } from '../types/apiResponse';
+
+import { ApiStatus, ApiResponse, StatusCode } from '../types';
 
 interface ApiResponseOptions<T> {
   res: Response;
-  code: StatusCodes;
-  status: ApiStatuses;
+  code: StatusCode;
+  status: ApiStatus;
   message: string;
   data: T | null;
 }

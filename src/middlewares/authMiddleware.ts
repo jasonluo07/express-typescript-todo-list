@@ -1,8 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import { StatusCodes } from 'http-status-codes';
 import jwt from 'jsonwebtoken';
-import { ApiStatuses } from '../types/apiResponse';
-import respond from '../utils/apiResponse';
+import { ApiStatus, StatusCode } from '../types';
+import respond from '../utils';
 
 declare module 'express' {
   interface Request {
@@ -22,8 +21,8 @@ export default function authMiddleware(req: Request, res: Response, next: NextFu
     if (!token) {
       return respond({
         res,
-        code: StatusCodes.UNAUTHORIZED,
-        status: ApiStatuses.FAIL,
+        code: StatusCode.UNAUTHORIZED,
+        status: ApiStatus.FAIL,
         message: req.t('NO_TOKEN_PROVIDED'),
         data: null,
       });
@@ -40,8 +39,8 @@ export default function authMiddleware(req: Request, res: Response, next: NextFu
     console.error(err);
     return respond({
       res,
-      code: StatusCodes.UNAUTHORIZED,
-      status: ApiStatuses.FAIL,
+      code: StatusCode.UNAUTHORIZED,
+      status: ApiStatus.FAIL,
       message: req.t('INVALID_TOKEN'),
       data: null,
     });
