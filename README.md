@@ -61,13 +61,13 @@ The application can be accessed by visiting `http://localhost:8080` in your web 
 
 - CSpell(Code Spell Checker): A spell checker for code that helps identify and fix typos in your codebase.
 
+- Husky and lint-staged integration: Automatically enforce code style and formatting rules before each Git commit, ensuring a consistent codebase and reducing code review overhead.
+
 ## Commit Message Guidelines
 
 This project follows the [Angular Commit Guidelines](https://github.com/angular/angular/blob/main/CONTRIBUTING.md#-commit-message-guidelines) for commit messages. By adhering to these guidelines, we can generate a clear and readable git history, as well as automate the generation of changelogs.
 
 ## Coming Soon
-
-- Husky and lint-staged integration: Automatically enforce code style and formatting rules before each Git commit, ensuring a consistent codebase and reducing code review overhead.
 
 - API Docs
 
@@ -78,6 +78,14 @@ This project follows the [Angular Commit Guidelines](https://github.com/angular/
 ├── .github
 │   ├── workflows
 │   │   └── check-commit-message-format.yml
+│   └── .DS_Store
+├── .husky
+│   ├── _
+│   │   ├── .gitignore
+│   │   └── husky.sh
+│   ├── commit-msg
+│   ├── post-merge
+│   └── pre-commit
 ├── .vscode
 │   ├── extensions.json
 │   └── settings.json
@@ -125,10 +133,12 @@ This project follows the [Angular Commit Guidelines](https://github.com/angular/
 ├── .eslintignore
 ├── .eslintrc.json
 ├── .gitignore
+├── .lintstagedrc
 ├── .prettierignore
 ├── .prettierrc.json
 ├── Dockerfile
 ├── README.md
+├── commitlint.config.js
 ├── cspell.json
 ├── jest.config.json
 ├── package.json
