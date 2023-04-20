@@ -15,6 +15,17 @@ function errorMiddleware(err: unknown, req: Request, res: Response, _next: NextF
     });
   }
 
+  // Handle other known errors
+  if (err instanceof Error) {
+    return respond({
+      res,
+      code: StatusCode.INTERNAL_SERVER_ERROR,
+      status: ApiStatus.ERROR,
+      message: err.message,
+      data: null,
+    });
+  }
+
   // Handle other unknown errors
   return respond({
     res,
