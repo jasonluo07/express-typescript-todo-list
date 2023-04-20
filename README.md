@@ -76,49 +76,55 @@ This project follows the [Angular Commit Guidelines](https://github.com/angular/
 ```
 .
 ├── .github
-│   └── workflows
-│       └── github-actions-demo.yml
+│   ├── workflows
+│   │   └── check-commit-message-format.yml
 ├── .vscode
-│   ├── extensions.json
-│   └── settings.json
+│   ├── extensions.json
+│   └── settings.json
 ├── src
-│   ├── __tests__
-│   │   └── routes
-│   │       └── testRoutes.test.ts
-│   ├── controllers
-│   │   ├── authController.ts
-│   │   ├── testController.ts
-│   │   └── todosController.ts
-│   ├── database
-│   │   └── index.ts
-│   ├── locales
-│   │   ├── en
-│   │   │   └── translation.json
-│   │   └── zh-TW
-│   │       └── translation.json
-│   ├── middlewares
-│   │   ├── authMiddleware.ts
-│   │   └── i18nMiddleware.ts
-│   ├── models
-│   │   ├── todo.ts
-│   │   └── user.ts
-│   ├── routes
-│   │   ├── authRoutes.ts
-│   │   ├── index.ts
-│   │   ├── testRoutes.ts
-│   │   └── todosRoutes.ts
-│   ├── types
-│   │   └── apiResponse.ts
-│   ├── utils
-│   │   └── apiResponse.ts
-│   ├── app.ts
-│   └── server.ts
+│   ├── __tests__
+│   │   └── routes
+│   │       └── testRoutes.test.ts
+│   ├── config
+│   │   └── corsOptions.ts
+│   ├── controllers
+│   │   ├── authController.ts
+│   │   ├── testController.ts
+│   │   └── todosController.ts
+│   ├── database
+│   │   └── index.ts
+│   ├── locales
+│   │   ├── en
+│   │   │   └── translation.json
+│   │   ├── zh-TW
+│   │   │   └── translation.json
+│   ├── middlewares
+│   │   ├── authMiddleware.ts
+│   │   ├── errorMiddleware.ts
+│   │   ├── i18nMiddleware.ts
+│   │   └── index.ts
+│   ├── models
+│   │   ├── index.ts
+│   │   ├── todo.ts
+│   │   └── user.ts
+│   ├── routes
+│   │   ├── authRoutes.ts
+│   │   ├── index.ts
+│   │   ├── testRoutes.ts
+│   │   └── todosRoutes.ts
+│   ├── types
+│   │   └── index.ts
+│   ├── utils
+│   │   └── index.ts
+│   ├── validators
+│   │   └── index.ts
+│   ├── app.ts
+│   └── server.ts
 ├── .dockerignore
 ├── .env.example
 ├── .eslintignore
 ├── .eslintrc.json
 ├── .gitignore
-├── .nvmrc
 ├── .prettierignore
 ├── .prettierrc.json
 ├── Dockerfile
