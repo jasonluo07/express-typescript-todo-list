@@ -1,4 +1,4 @@
 {
-  "*.{js,jsx,ts,tsx}": ["eslint --fix", "prettier --write"],
-  "*": ["cspell --no-must-find-files"]
+  "src/**/*.{js,ts,scss,md,html,json}": ["eslint --fix", "prettier --write"],
+  "src/**/*": ["cspell --no-must-find-files"]
 }
