@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import Todo, { todoSchemaValidator } from '../models/todo';
+import { Todo } from '../models';
 import { ApiStatus, ITodo, StatusCode } from '../types';
+import { todosValidator } from '../validators';
 import respond from '../utils';
 
 // Get all todos
@@ -25,7 +26,7 @@ async function getAllTodos(req: Request, res: Response, next: NextFunction): Pro
 async function createNewTodo(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
   try {
     // Validate request body with Zod
-    const validatedData = todoSchemaValidator.parse(req.body);
+    const validatedData = todosValidator.parse(req.body);
 
     // Create a new todo
     const newTodo: ITodo = new Todo({
@@ -94,7 +95,7 @@ async function getTodoById(req: Request, res: Response, next: NextFunction): Pro
 async function updateTodoById(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
   try {
     // Validate request body with Zod
-    const validatedData = todoSchemaValidator.parse(req.body);
+    const validatedData = todosValidator.parse(req.body);
 
     // Update a todo
     const updatedTodo: ITodo | null = await Todo.findByIdAndUpdate(

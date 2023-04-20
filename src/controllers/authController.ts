@@ -1,8 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import User, { userSchemaValidator } from '../models/user';
+import { User } from '../models';
 import { ApiStatus, StatusCode, IUser } from '../types';
+import { usersValidator } from '../validators';
 import respond from '../utils';
 
 function signToken(userId: string): string {
@@ -12,7 +13,7 @@ function signToken(userId: string): string {
 async function register(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
   try {
     // Validate request body with Zod
-    const validatedData = userSchemaValidator.parse(req.body);
+    const validatedData = usersValidator.parse(req.body);
 
     // Check if user with the same email already exists
     const existingUser = await User.findOne({ email: validatedData.email });
@@ -55,7 +56,7 @@ async function register(req: Request, res: Response, next: NextFunction): Promis
 async function login(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
   try {
     // Validate request body with Zod
-    const validatedData = userSchemaValidator.parse(req.body);
+    const validatedData = usersValidator.parse(req.body);
 
     // Check if user with the same email already exists
     const user: IUser | null = await User.findOne({ email: validatedData.email });
