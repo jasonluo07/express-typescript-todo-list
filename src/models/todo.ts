@@ -1,7 +1,7 @@
-import mongoose, { Schema } from 'mongoose';
+import { model, Schema } from 'mongoose';
 import { ITodo } from '../types';
 
-const todoSchema = new Schema(
+const todoSchema = new Schema<ITodo>(
   {
     title: {
       type: String,
@@ -16,4 +16,4 @@ const todoSchema = new Schema(
   { timestamps: true }, // Add createdAt and updatedAt fields
 );
 
-export default mongoose.model<ITodo>('Todo', todoSchema);
+export default model<ITodo>('Todo', todoSchema);

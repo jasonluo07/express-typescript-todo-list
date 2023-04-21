@@ -1,4 +1,4 @@
-import mongoose, { Schema } from 'mongoose';
+import { model, Schema } from 'mongoose';
 import { IUser } from '../types';
 
 const userSchema = new Schema(
@@ -16,4 +16,4 @@ const userSchema = new Schema(
   { timestamps: true }, // Add createdAt and updatedAt fields
 );
 
-export default mongoose.model<IUser>('User', userSchema);
+export default model<IUser>('User', userSchema);
