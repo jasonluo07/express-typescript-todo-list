@@ -1,6 +1,6 @@
 import { Response } from 'express';
 
-import { ApiStatus, ApiResponse, StatusCode } from '../types';
+import { ApiResponse, ApiStatus, StatusCode } from '../types';
 
 interface ApiResponseOptions<T> {
   res: Response;

@@ -1,9 +1,9 @@
+import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
-import cors from 'cors';
-import { i18nMiddleware, errorMiddleware } from './middlewares';
-import corsOptions from './configs/corsOptions';
 
+import corsOptions from './configs/corsOptions';
+import { errorMiddleware, i18nMiddleware } from './middlewares';
 import router from './routes';
 
 dotenv.config(); // Load .env file

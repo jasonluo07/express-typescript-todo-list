@@ -1,10 +1,11 @@
-import { Request, Response, NextFunction } from 'express';
 import bcrypt from 'bcrypt';
+import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
+
 import { User } from '../models';
-import { ApiStatus, StatusCode, IUser } from '../types';
-import { usersValidator } from '../validators';
+import { ApiStatus, IUser, StatusCode } from '../types';
 import respond from '../utils';
+import { usersValidator } from '../validators';
 
 function signToken(userId: string): string {
   return jwt.sign({ userId }, process.env.JWT_SECRET_KEY!, { expiresIn: '1m' });

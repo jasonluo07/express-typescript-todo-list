@@ -1,7 +1,8 @@
 import { Router } from 'express';
+
 import authRoutes from './authRoutes';
-import todosRoutes from './todosRoutes';
 import testRoutes from './testRoutes';
+import todosRoutes from './todosRoutes';
 // import { authMiddleware } from '../middlewares'; TODO: Uncomment this line when you need to use authMiddleware
 
 const router = Router();

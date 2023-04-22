@@ -1,4 +1,4 @@
-import User from './user';
 import Todo from './todo';
+import User from './user';
 
-export { User, Todo };
+export { Todo, User };

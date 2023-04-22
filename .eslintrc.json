@@ -4,7 +4,7 @@
   },
   "parser": "@typescript-eslint/parser",
   "extends": ["airbnb-base", "plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
-  "plugins": ["@typescript-eslint", "prettier", "node"],
+  "plugins": ["@typescript-eslint", "prettier", "node", "simple-import-sort"],
   "rules": {
     "prettier/prettier": ["error", { "singleQuote": true }],
     "import/extensions": ["error", "ignorePackages", { "ts": "never" }],
@@ -12,7 +12,9 @@
     "no-shadow": "off",
     "func-names": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
-    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error"
   },
   "settings": {
     "import/resolver": {

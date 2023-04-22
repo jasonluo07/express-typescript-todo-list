@@ -1,5 +1,5 @@
-import { Document } from 'mongoose';
 import { StatusCodes as StatusCode } from 'http-status-codes';
+import { Document } from 'mongoose';
 
 export { StatusCode };
 

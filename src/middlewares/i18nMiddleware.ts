@@ -1,7 +1,7 @@
+import i18next from 'i18next';
+import FsBackend, { FsBackendOptions } from 'i18next-fs-backend';
 import i18nextMiddleware, { LanguageDetector } from 'i18next-http-middleware';
 import { join } from 'path';
-import FsBackend, { FsBackendOptions } from 'i18next-fs-backend';
-import i18next from 'i18next';
 
 i18next
   .use(LanguageDetector) // Set language detector

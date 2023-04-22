@@ -1,5 +1,6 @@
-import { Request, Response, NextFunction } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { ZodError } from 'zod';
+
 import { ApiStatus, StatusCode } from '../types';
 import respond from '../utils';
 
