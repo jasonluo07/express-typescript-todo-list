@@ -71,14 +71,13 @@ This project follows the [Angular Commit Guidelines](https://github.com/angular/
 
 - API Docs
 
-# Project Structure
+# Folder Structure
 
 ```
 .
 ├── .github
 │   ├── workflows
-│   │   └── check-commit-message-format.yml
-│   └── .DS_Store
+│   │   └── tests.yml
 ├── .husky
 │   ├── _
 │   │   ├── .gitignore
@@ -93,7 +92,7 @@ This project follows the [Angular Commit Guidelines](https://github.com/angular/
 │   ├── __tests__
 │   │   └── routes
 │   │       └── testRoutes.test.ts
-│   ├── config
+│   ├── configs
 │   │   └── corsOptions.ts
 │   ├── controllers
 │   │   ├── authController.ts
@@ -129,16 +128,18 @@ This project follows the [Angular Commit Guidelines](https://github.com/angular/
 │   ├── app.ts
 │   └── server.ts
 ├── .dockerignore
+├── .env
 ├── .env.example
 ├── .eslintignore
 ├── .eslintrc.json
 ├── .gitignore
 ├── .lintstagedrc
+├── .nvmrc
 ├── .prettierignore
 ├── .prettierrc.json
 ├── Dockerfile
 ├── README.md
-├── commitlint.config.js
+├── commitlint.config.cjs
 ├── cspell.json
 ├── jest.config.json
 ├── package.json
