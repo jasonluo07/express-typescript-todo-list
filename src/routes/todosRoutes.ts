@@ -11,5 +11,6 @@ router.get('/:id', todosController.getTodoById);
 router.put('/:id', todosController.updateTodoById);
 router.patch('/:id', todosController.toggleTodoById);
 router.delete('/:id', todosController.deleteTodoById);
+router.get('/:keyword', todosController.searchTodoByWord);
 
 export default router;

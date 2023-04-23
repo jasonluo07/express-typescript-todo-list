@@ -186,6 +186,36 @@ async function deleteTodoById(req: Request, res: Response, next: NextFunction): 
   }
 }
 
+// Search a todo by keyword
+async function searchTodoByWord(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+  try {
+    // const validatedData = todosValidator.parse(req.body);
+    // Find the target item
+    const targetTodo: ITodo[] | null = await Todo.find({
+      title: { $regex: req.params.title, options: 'i' },
+    });
+
+    if (!targetTodo) {
+      return respond({
+        res,
+        code: StatusCode.NOT_FOUND,
+        status: ApiStatus.FAIL,
+        message: req.t('TODO_NOT_FOUND'),
+        data: null,
+      });
+    }
+    return respond({
+      res,
+      code: StatusCode.OK,
+      status: ApiStatus.SUCCESS,
+      message: req.t('ONE_TODO_FETCHED_SUCCESSFULLY'),
+      data: targetTodo,
+    });
+  } catch (err) {
+    return next(err);
+  }
+}
+
 export default {
   getAllTodos,
   createNewTodo,
@@ -194,4 +224,5 @@ export default {
   updateTodoById,
   toggleTodoById,
   deleteTodoById,
+  searchTodoByWord,
 };
