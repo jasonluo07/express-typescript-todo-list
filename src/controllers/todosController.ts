@@ -192,7 +192,7 @@ async function searchTodoByWord(req: Request, res: Response, next: NextFunction)
     // const validatedData = todosValidator.parse(req.body);
     // Find the target item
     const targetTodo: ITodo[] | null = await Todo.find({
-      title: { $regex: req.params.title, options: 'i' },
+      title: req.query.keyword,
     });
 
     if (!targetTodo) {
