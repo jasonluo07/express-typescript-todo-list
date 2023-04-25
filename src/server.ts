@@ -1,9 +1,9 @@
 import app from './app';
-import database from './database';
+import { Mongo } from './db';
 
 (async function (): Promise<void> {
   try {
-    await database.connect();
+    await Mongo.connect();
     app.listen(process.env.PORT!, () => {
       console.info(`App listening on http://${process.env.HOST!}:${process.env.PORT!}`);
     });
