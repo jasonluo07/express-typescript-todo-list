@@ -1,14 +1,14 @@
 import { Router } from 'express';
 
-import authRoutes from './authRoutes';
-import testRoutes from './testRoutes';
-import todosRoutes from './todosRoutes';
-// import { authMiddleware } from '../middlewares'; TODO: Uncomment this line when you need to use authMiddleware
+import hellosController from '../controllers/hellosController';
+import v1Routes from './v1';
+import v2Routes from './v2';
 
 const router = Router();
 
-router.use('', testRoutes);
-router.use('/api', authRoutes);
-router.use('/api/todos', todosRoutes);
+router.use('/api/v1', v1Routes);
+router.use('/api/v2', v2Routes);
+
+router.get('/', hellosController.getHello);
 
 export default router;
