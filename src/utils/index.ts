@@ -10,7 +10,7 @@ interface ApiResponseOptions<T> {
   data: T | null;
 }
 
-export default function respond<T>({ res, code, status, message, data }: ApiResponseOptions<T>): Response {
+export function respond<T>({ res, code, status, message, data }: ApiResponseOptions<T>): Response {
   const apiResponse: ApiResponse<T> = { status, message, data };
   return res.status(code).json(apiResponse);
 }

@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 
 import { User } from '../models';
 import { ApiStatus, IUser, StatusCode } from '../types';
-import respond from '../utils';
+import { respond } from '../utils';
 import { usersValidator } from '../validators';
 
 function signToken(userId: string): string {

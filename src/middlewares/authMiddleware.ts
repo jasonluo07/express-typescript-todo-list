@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 
 import { ApiStatus, StatusCode } from '../types';
-import respond from '../utils';
+import { respond } from '../utils';
 
 declare module 'express' {
   interface Request {

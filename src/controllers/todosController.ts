@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 
 import { Todo } from '../models';
 import { ApiStatus, ITodo, StatusCode } from '../types';
-import respond from '../utils';
+import { respond } from '../utils';
 import { todosValidator } from '../validators';
 
 // Get all todos

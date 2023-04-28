@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 
 import { ApiStatus, StatusCode } from '../types';
-import respond from '../utils';
+import { respond } from '../utils';
 
 function getHello(req: Request, res: Response, next: NextFunction): Response | void {
   try {

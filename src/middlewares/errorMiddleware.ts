@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { ZodError } from 'zod';
 
 import { ApiStatus, StatusCode } from '../types';
-import respond from '../utils';
+import { respond } from '../utils';
 
 function errorMiddleware(err: unknown, req: Request, res: Response, _next: NextFunction): Response {
   // Failed to validate request body
