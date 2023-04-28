@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { ApiResponse, ApiStatus, StatusCode } from '../types';
+import { ApiStatus, IApiResponse, StatusCode } from '../types';
 
-interface ApiResponseOptions<T> {
+interface IApiResponseOptions<T> {
   res: Response;
   code: StatusCode;
   status: ApiStatus;
@@ -10,8 +10,8 @@ interface ApiResponseOptions<T> {
   data: T | null;
 }
 
-export function respond<T>({ res, code, status, message, data }: ApiResponseOptions<T>): Response {
-  const apiResponse: ApiResponse<T> = { status, message, data };
+export function respond<T>({ res, code, status, message, data }: IApiResponseOptions<T>): Response {
+  const apiResponse: IApiResponse<T> = { status, message, data };
   return res.status(code).json(apiResponse);
 }
 

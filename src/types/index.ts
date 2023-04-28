@@ -19,7 +19,7 @@ export enum ApiStatus {
   ERROR = 'Error',
 }
 
-export interface ApiResponse<T> {
+export interface IApiResponse<T> {
   status: ApiStatus;
   message: string;
   data: T | null;
