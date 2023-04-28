@@ -31,6 +31,7 @@ The application can be accessed by visiting `http://localhost:8080` in your web 
 # Technology Stack
 
 ## Core
+
 - Express: A popular web framework for Node.js used to build APIs and web applications.
 
 - TypeScript: A superset of JavaScript that adds static typing and other features to improve code quality and maintainability.
@@ -96,9 +97,12 @@ This project follows the [Angular Commit Guidelines](https://github.com/angular/
 │   │   └── corsOptions.ts
 │   ├── controllers
 │   │   ├── authController.ts
-│   │   ├── testController.ts
+│   │   ├── hellosController.ts
+│   │   ├── index.ts
 │   │   └── todosController.ts
-│   ├── database
+│   ├── db
+│   │   ├── Mongo.ts
+│   │   ├── Redis.ts
 │   │   └── index.ts
 │   ├── locales
 │   │   ├── en
@@ -115,10 +119,14 @@ This project follows the [Angular Commit Guidelines](https://github.com/angular/
 │   │   ├── todo.ts
 │   │   └── user.ts
 │   ├── routes
-│   │   ├── authRoutes.ts
-│   │   ├── index.ts
-│   │   ├── testRoutes.ts
-│   │   └── todosRoutes.ts
+│   │   ├── v1
+│   │   │   ├── index.ts
+│   │   │   └── todosRoutes.ts
+│   │   ├── v2
+│   │   │   ├── authRoutes.ts
+│   │   │   ├── index.ts
+│   │   │   └── todosRoutes.ts
+│   │   └── index.ts
 │   ├── types
 │   │   └── index.ts
 │   ├── utils
@@ -139,7 +147,7 @@ This project follows the [Angular Commit Guidelines](https://github.com/angular/
 ├── .prettierrc.json
 ├── Dockerfile
 ├── README.md
-├── commitlint.config.cjs
+├── commitlint.config.ts
 ├── cspell.json
 ├── jest.config.json
 ├── package.json
