@@ -162,8 +162,9 @@ const deleteTodoById = catchError(async (req: Request, res: Response): Promise<R
 const searchTodoByWord = catchError(async (req: Request, res: Response): Promise<Response> => {
   // const validatedData = todosValidator.parse(req.body);
   // Find the target item
+
   const targetTodo: ITodo[] | null = await Todo.find({
-    title: req.query.keyword,
+    title: { $regex: req.query.keyword, $options: 'i' },
   });
 
   if (!targetTodo) {
